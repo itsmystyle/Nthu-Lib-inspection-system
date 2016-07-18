@@ -4,9 +4,172 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Splash_Login_Activity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Splash_logo"
+            android:src="@drawable/nthu_lib_logo_2"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="35dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="圖書館資訊設備維護檢修系統"
+            android:id="@+id/Splash_title"
+            android:textColor="@color/davy_grey"
+            android:textSize="40sp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.6">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.8">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/username_logo"
+                                android:layout_gravity="bottom|right"
+                                android:src="@drawable/user_icon"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginRight="5dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/username_input"
+                                android:layout_gravity="bottom"
+                                android:hint="Username"
+                                android:textSize="16sp"
+                                android:backgroundTint="@color/byzantium1"
+                                android:textColor="@color/byzantium"
+                                android:textColorHint="@color/byzantium"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="60dp" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.8">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/password_logo"
+                                android:layout_gravity="top|right"
+                                android:src="@drawable/password_icon"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="30dp" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2" >
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/password_input"
+                                android:layout_gravity="top"
+                                android:hint="Password"
+                                android:textSize="16sp"
+                                android:backgroundTint="@color/byzantium1"
+                                android:textColor="@color/byzantium"
+                                android:textColorHint="@color/byzantium"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginRight="60dp" />
+                        </FrameLayout>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:background="@drawable/background">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In"
+                    android:id="@+id/Splash_SignIn"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginRight="80dp"
+                    android:textSize="20sp"
+                    android:background="@drawable/rounded_signin_button"
+                    android:textColor="@color/white"
+                    android:alpha="0.9" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
