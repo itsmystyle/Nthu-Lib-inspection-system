@@ -10,41 +10,35 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3">
+        android:layout_weight="3">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Splash_logo"
             android:src="@drawable/nthu_lib_logo_2"
-            android:layout_gravity="left|bottom"
-            android:layout_marginLeft="35dp" />
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="60dp" />
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1">
+        android:layout_weight="1">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="圖書館資訊設備維護檢修系統"
             android:id="@+id/Splash_title"
-            android:textColor="@color/davy_grey"
-            android:textSize="40sp"
             android:layout_gravity="center"
-            android:textAlignment="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp" />
+            android:src="@drawable/splash_title" />
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_weight="0.6">
+        android:layout_weight="6">
 
         <LinearLayout
             android:orientation="vertical"
@@ -55,12 +49,14 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.6">
+                android:layout_weight="0.7">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:nestedScrollingEnabled="false"
+                    android:minHeight="50dp">
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -91,7 +87,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/username_input"
-                                android:layout_gravity="bottom"
+                                android:layout_gravity="bottom|right"
                                 android:hint="Username"
                                 android:textSize="16sp"
                                 android:backgroundTint="@color/byzantium1"
@@ -106,7 +102,8 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:minHeight="50dp">
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -122,10 +119,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/password_logo"
-                                android:layout_gravity="top|right"
+                                android:layout_gravity="center_vertical|right"
                                 android:src="@drawable/password_icon"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginTop="30dp" />
+                                android:layout_marginRight="5dp" />
                         </FrameLayout>
 
                         <FrameLayout
@@ -137,14 +133,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/password_input"
-                                android:layout_gravity="top"
+                                android:layout_gravity="left|center_vertical"
                                 android:hint="Password"
                                 android:textSize="16sp"
                                 android:backgroundTint="@color/byzantium1"
                                 android:textColor="@color/byzantium"
                                 android:textColorHint="@color/byzantium"
                                 android:layout_marginLeft="5dp"
-                                android:layout_marginTop="25dp"
                                 android:layout_marginRight="60dp" />
                         </FrameLayout>
                     </LinearLayout>
@@ -168,7 +163,7 @@
                     android:textSize="20sp"
                     android:background="@drawable/rounded_signin_button"
                     android:textColor="@color/white"
-                    android:alpha="0.9" />
+                    android:alpha="0.85" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
