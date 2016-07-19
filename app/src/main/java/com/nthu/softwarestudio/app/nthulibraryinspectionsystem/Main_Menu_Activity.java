@@ -57,12 +57,10 @@ public class Main_Menu_Activity extends AppCompatActivity {
 
                 Log.v("Look url:", "Built URI " + builtUri.toString());
 
-                Integer lenghtOfFile = urlConnection.getContentLength();
-
-                Log.v("Look url:", "Conent Length " + lenghtOfFile.toString());
-
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();
+
+
                 if (inputStream == null) {
                     // Nothing to do.
                     return null;
@@ -71,13 +69,29 @@ public class Main_Menu_Activity extends AppCompatActivity {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    progress+=1;
-                    publishProgress(progress);
+
                     // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                     // But it does make debugging a *lot* easier if you print out the completed
                     // buffer for debugging.
                     buffer.append(line);
                 }
+
+                publishProgress(50);
+
+                try{
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e){};
+
+                int pp=51;
+                for(pp=51 ; pp<100;pp++){
+                    try{
+                        Thread.sleep(20);
+                        publishProgress(pp);
+                    }
+                    catch (InterruptedException e){};
+                }
+
 
                 if (buffer.length() == 0) {
                     // Stream was empty.  No point in parsing.
@@ -107,7 +121,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
 
 
 
-
+            publishProgress(100);
             return alldatastring;
         }
 
