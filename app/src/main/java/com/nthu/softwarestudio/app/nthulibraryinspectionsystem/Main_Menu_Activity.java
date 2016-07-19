@@ -20,11 +20,11 @@ public class Main_Menu_Activity extends AppCompatActivity {
         progressBar.setMax(100);
         progressBar.setProgress(progress);
 
-        testProgressBar testProgressBar = new testProgressBar();
-        testProgressBar.execute(progress);
+        LoadingProgressBar loadingProgressBar = new LoadingProgressBar();
+        loadingProgressBar.execute(progress);
     }
 
-    class testProgressBar extends AsyncTask<Integer, Integer, Void>{
+    class LoadingProgressBar extends AsyncTask<Integer, Integer, Void>{
 
         @Override
         protected Void doInBackground(Integer... Progress) {
