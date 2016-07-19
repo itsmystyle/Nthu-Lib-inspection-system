@@ -20,14 +20,14 @@ public class AccountHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(AccountContract.CREATE_TABLE);
-        Log.v(LOG_TAG, "onCreate Table");
+        Log.v(LOG_TAG, "onCreate database");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(AccountContract.DROP_TABLE);
         onCreate(db);
-        Log.v(LOG_TAG, "onUpgrade Table");
+        Log.v(LOG_TAG, "onUpgrade database");
     }
 
     public boolean insertData(String userid, String access_token, String username, Integer foreign_id){
@@ -41,7 +41,7 @@ public class AccountHelper extends SQLiteOpenHelper {
         try{
             long result = sqLiteDatabase.insert(AccountContract.TABLE_NAME, null, contentValues);
 
-            return result==1? false: true;
+            return result==-1? false: true;
         }finally {
             sqLiteDatabase.close();
         }
