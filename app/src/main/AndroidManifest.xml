@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".Main_Menu_Activity" />
         <activity android:name=".Splash_Login_Activity" />
-
+        <activity android:name=".RecordCat"></activity>
     </application>
 
 </manifest>
