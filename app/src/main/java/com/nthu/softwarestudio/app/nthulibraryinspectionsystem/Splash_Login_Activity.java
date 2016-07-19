@@ -69,8 +69,6 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 String urlParameters = WebServerContract.USER_AUTHORIZATION_USERID + "=" + params[0] + "&" +
                                         WebServerContract.USER_AUTHORIZATION_USERPASSWORD + "=" + params[1];
 
-                Log.e(LOG_TAG, url.toString() + " " + urlParameters);
-
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

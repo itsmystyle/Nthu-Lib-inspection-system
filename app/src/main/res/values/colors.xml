@@ -6,8 +6,10 @@
   <color name="black">#000000</color>
   <color name="white">#ffffff</color>
   <color name="davy_grey">#535353</color>
+  <color name="davy_grey_0.4">#5c535353</color>
   <color name="byzantium1">#752069</color>
   <color name="byzantium">#75206a</color>
   <color name="byzantium_half">#e675206a</color>
+  <color name="byzantium_0.4">#3275206a</color>
 </resources>
 
