@@ -1,9 +1,12 @@
 package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.AccountHelper;
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     Button settingButton;
     Button signOutButton;
 
+    Dialog settingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,31 @@ public class MainActivity extends AppCompatActivity {
         statisticButton = (Button) findViewById(R.id.main_menu_button_statistics);
         settingButton = (Button) findViewById(R.id.main_menu_button_setting);
         signOutButton = (Button) findViewById(R.id.main_menu_button_log_out);
+
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingDialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
+                settingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                settingDialog.setContentView(R.layout.setting_dialog);
+
+                Window window = settingDialog.getWindow();
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT);
+
+                final Button sumbitButton = (Button) settingDialog.findViewById(R.id.button_setting_submit);
+                final Button cancelButton = (Button) settingDialog.findViewById(R.id.button_setting_cancel);
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingDialog.onBackPressed();
+                    }
+                });
+
+                settingDialog.show();
+            }
+        });
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

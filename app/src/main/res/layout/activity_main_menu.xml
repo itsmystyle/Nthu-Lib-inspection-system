@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Loading Data..."
-            android:id="@+id/textView"
+            android:text="@string/loading_data"
+            android:id="@+id/loading_data_string"
             android:layout_gravity="bottom|center_horizontal" />
     </FrameLayout>
 

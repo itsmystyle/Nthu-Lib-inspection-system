@@ -8,7 +8,6 @@ public class WebServerContract {
 
     // user authorization
     public static final String USER_AUTHORIZATION_URL = "/User_Authorization/user_authorization.php";
-    public static final String LIST_ALL_PROBLEN_URL = "/list_perticulor_problem.php";
     public static final String USER_AUTHORIZATION_SERVER = "server";
     public static final String USER_AUTHORIZATION_SERVER_ERROR = "UNFOUND";
     public static final String USER_AUTHORIZATION_SERVER_SECURE = "secure";
@@ -20,4 +19,7 @@ public class WebServerContract {
     public static final String USER_AUTHORIZATION_USER_ACCESS_TOKEN = "access-token";
     public static final String USER_AUTHORIZATION_USER_NAME = "name";
 
+
+    // list
+    public static final String LIST_ALL_PROBLEN_URL = "/list_perticulor_problem.php";
 }

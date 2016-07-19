@@ -5,4 +5,13 @@
     <string name="button_statistics">統計</string>
     <string name="button_setting">帳號設定</string>
     <string name="button_sign_out">Sign Out</string>
+    <string name="loading_data">Loading Data...</string>
+    <string name="setting_old_password">舊密碼</string>
+    <string name="setting_enter_old_password">請輸入舊密碼...</string>
+    <string name="setting_new_password">新密碼</string>
+    <string name="setting_enter_new_password">請輸入新密碼...</string>
+    <string name="setting_new_password_2">新密碼確認</string>
+    <string name="setting_enter_new_password_2">請輸入新密碼...</string>
+    <string name="setting_submit">Submit</string>
+    <string name="setting_cancel">Cancel</string>
 </resources>
