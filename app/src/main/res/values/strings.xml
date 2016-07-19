@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Nthu Library Inspection System</string>
+    <string name="button_inspection">設備維護檢視</string>
+    <string name="button_history">設備檢視紀錄</string>
+    <string name="button_statistics">統計</string>
+    <string name="button_setting">帳號設定</string>
+    <string name="button_sign_out">Sign Out</string>
 </resources>

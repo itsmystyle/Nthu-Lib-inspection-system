@@ -118,9 +118,9 @@ public class Main_Menu_Activity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String s) {
+            super.onPostExecute(s);
 
-
-            Intent intent = new Intent(getApplicationContext(), RecordCat.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();

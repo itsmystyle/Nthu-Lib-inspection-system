@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.MainActivity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_inspection"
+            android:id="@+id/main_menu_button_inspection"
+            android:textSize="35sp"
+            android:background="@drawable/rounded_button_menu"
+            android:textColor="@color/davy_grey" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_history"
+            android:id="@+id/main_menu_button_inspection_history"
+            android:textSize="35sp"
+            android:background="@drawable/rounded_button_menu"
+            android:textColor="@color/davy_grey" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_statistics"
+            android:id="@+id/main_menu_button_statistics"
+            android:textSize="35sp"
+            android:background="@drawable/rounded_button_menu"
+            android:textColor="@color/davy_grey" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/button_setting"
+            android:id="@+id/main_menu_button_setting"
+            android:textSize="35sp"
+            android:background="@drawable/rounded_button_menu"
+            android:textColor="@color/davy_grey" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"></FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_menu_background_logo">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_sign_out"
+                android:id="@+id/main_menu_button_log_out"
+                android:layout_gravity="bottom"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_signin_button"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:alpha="0.85" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
