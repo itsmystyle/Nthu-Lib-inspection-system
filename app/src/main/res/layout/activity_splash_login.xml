@@ -94,7 +94,8 @@
                                 android:textColor="@color/byzantium"
                                 android:textColorHint="@color/byzantium"
                                 android:layout_marginLeft="5dp"
-                                android:layout_marginRight="60dp" />
+                                android:layout_marginRight="60dp"
+                                android:inputType="textEmailAddress" />
                         </FrameLayout>
                     </LinearLayout>
                 </FrameLayout>
@@ -140,7 +141,8 @@
                                 android:textColor="@color/byzantium"
                                 android:textColorHint="@color/byzantium"
                                 android:layout_marginLeft="5dp"
-                                android:layout_marginRight="60dp" />
+                                android:layout_marginRight="60dp"
+                                android:inputType="textPassword" />
                         </FrameLayout>
                     </LinearLayout>
                 </FrameLayout>

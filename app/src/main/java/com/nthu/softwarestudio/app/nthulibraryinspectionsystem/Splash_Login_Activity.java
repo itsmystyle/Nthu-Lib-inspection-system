@@ -160,7 +160,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
                                             .getString(WebServerContract.USER_AUTHORIZATION_SERVER_SECURE);
 
                     if(secure.equals(WebServerContract.USER_AUTHORIZATION_SERVER_SECURE_UNAUTHORIZED)){
-                        Toast.makeText(getApplicationContext(),"Wrong Username or Password. Please try again later."
+                        Toast.makeText(getApplicationContext(),"Wrong Username or Password. Please try again."
                                 , Toast.LENGTH_SHORT).show();
                         return;
                     }else{
