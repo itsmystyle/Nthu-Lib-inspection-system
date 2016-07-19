@@ -54,7 +54,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
         });
     }
 
-    public class Authorization extends AsyncTask<String, Void, String>{
+    class Authorization extends AsyncTask<String, Void, String>{
         private final String LOG_TAG = this.getClass().getSimpleName();
         private final String USER_AUTHORIZATION_URL = WebServerContract.BASE_URL + WebServerContract.USER_AUTHORIZATION_URL;
 
