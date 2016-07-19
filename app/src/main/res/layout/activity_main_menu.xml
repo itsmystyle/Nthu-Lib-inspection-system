@@ -34,7 +34,8 @@
             android:layout_gravity="bottom|center_horizontal"
             android:max="100"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp" />
+            android:layout_marginLeft="30dp"
+            android:progressTint="@color/byzantium" />
     </FrameLayout>
 
     <FrameLayout
