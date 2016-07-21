@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <Button
             android:layout_width="match_parent"
@@ -26,7 +28,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <Button
             android:layout_width="match_parent"
@@ -41,7 +45,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -57,7 +63,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <Button
             android:layout_width="match_parent"
@@ -96,7 +104,9 @@
                 android:background="@drawable/rounded_signin_button"
                 android:textColor="@color/white"
                 android:layout_marginBottom="10dp"
-                android:alpha="0.85" />
+                android:alpha="0.85"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
         </FrameLayout>
     </LinearLayout>
 

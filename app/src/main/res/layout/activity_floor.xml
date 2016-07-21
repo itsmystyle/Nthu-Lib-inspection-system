@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Floor_Activity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -14,10 +15,11 @@
         android:layout_marginTop="5dp">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="5dp">
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/f1">
 
             <Button
                 android:layout_width="match_parent"
@@ -25,17 +27,18 @@
                 android:text="1F"
                 android:id="@+id/button_f1"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button_menu"
-                android:foreground="@drawable/f1"
+                android:background="@drawable/rounded_button_floor"
                 android:textColor="@color/davy_grey"
                 android:textSize="50sp" />
+
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:background="@drawable/f2">
 
             <Button
                 android:layout_width="match_parent"
@@ -43,8 +46,7 @@
                 android:text="2F"
                 android:id="@+id/button_f2"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button_menu"
-                android:foreground="@drawable/f2"
+                android:background="@drawable/rounded_button_floor"
                 android:textColor="@color/davy_grey"
                 android:textSize="50sp" />
         </FrameLayout>
@@ -57,10 +59,11 @@
         android:layout_weight="1">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="5dp" >
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/f3">
 
             <Button
                 android:layout_width="match_parent"
@@ -68,17 +71,17 @@
                 android:text="3F"
                 android:id="@+id/button_f3"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button_menu"
-                android:foreground="@drawable/f3"
+                android:background="@drawable/rounded_button_floor"
                 android:textColor="@color/davy_grey"
                 android:textSize="50sp" />
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginRight="5dp" >
+            android:layout_marginRight="5dp"
+            android:background="@drawable/f4">
 
             <Button
                 android:layout_width="match_parent"
@@ -86,8 +89,7 @@
                 android:text="4F"
                 android:id="@+id/button_f4"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button_menu"
-                android:foreground="@drawable/f4"
+                android:background="@drawable/rounded_button_floor"
                 android:textColor="@color/davy_grey"
                 android:textSize="50sp" />
         </FrameLayout>
@@ -100,10 +102,11 @@
         android:layout_weight="1">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="5dp" >
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/f5">
 
             <Button
                 android:layout_width="match_parent"
@@ -111,17 +114,17 @@
                 android:text="5F"
                 android:id="@+id/button_f5"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button_menu"
-                android:foreground="@drawable/f5"
+                android:background="@drawable/rounded_button_floor"
                 android:textColor="@color/davy_grey"
                 android:textSize="50sp" />
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginRight="5dp" >
+            android:layout_marginRight="5dp"
+            android:background="@drawable/f6">
 
             <Button
                 android:layout_width="match_parent"
@@ -129,8 +132,7 @@
                 android:text="6F"
                 android:id="@+id/button_f6"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_button_menu"
-                android:foreground="@drawable/f6"
+                android:background="@drawable/rounded_button_floor"
                 android:textColor="@color/davy_grey"
                 android:textSize="50sp" />
         </FrameLayout>

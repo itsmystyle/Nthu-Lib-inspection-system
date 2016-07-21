@@ -31,7 +31,7 @@ public class Device_Activity extends AppCompatActivity {
     }
 
     private void populateTableButton(int mode, int floor) {
-        int tableRow = 4;
+        int tableRow = 12;
         int tableCol = 3;
 
         if(mode == ViewContract.INSPECTION){
