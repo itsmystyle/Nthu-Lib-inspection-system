@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.AccountHelper;
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = getClass().getSimpleName();
@@ -36,6 +37,16 @@ public class MainActivity extends AppCompatActivity {
         statisticButton = (Button) findViewById(R.id.main_menu_button_statistics);
         settingButton = (Button) findViewById(R.id.main_menu_button_setting);
         signOutButton = (Button) findViewById(R.id.main_menu_button_log_out);
+
+        inspectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Floor_Activity.class);
+                intent.putExtra(ViewContract.MODE, ViewContract.INSPECTION);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override

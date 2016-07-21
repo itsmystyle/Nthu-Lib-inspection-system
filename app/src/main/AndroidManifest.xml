@@ -28,8 +28,10 @@
         </activity>
         <activity android:name=".Main_Menu_Activity" />
         <activity android:name=".Splash_Login_Activity" />
-        <activity android:name=".RecordCat"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".RecordCat" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Floor_Activity" />
+        <activity android:name=".Device_Activity"></activity>
     </application>
 
 </manifest>
