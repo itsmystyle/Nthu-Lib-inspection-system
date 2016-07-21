@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Floor_Activity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="1F"
+                android:id="@+id/button_f1"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:foreground="@drawable/f1"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="2F"
+                android:id="@+id/button_f2"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:foreground="@drawable/f2"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="3F"
+                android:id="@+id/button_f3"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:foreground="@drawable/f3"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="4F"
+                android:id="@+id/button_f4"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:foreground="@drawable/f4"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="5F"
+                android:id="@+id/button_f5"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:foreground="@drawable/f5"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="6F"
+                android:id="@+id/button_f6"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:foreground="@drawable/f6"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="人社 1F"
+                android:id="@+id/button_rsf1"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="人社 2F"
+                android:id="@+id/button_rsf2"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_button_menu"
+                android:textColor="@color/davy_grey"
+                android:textSize="50sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"></FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_menu_background_logo"></FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -48,6 +48,12 @@ public class Splash_Login_Activity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(userName.length() == 0 || userPass.length() == 0){
+                    Toast.makeText(getApplicationContext(), "Username or Password must not be empty. Please try again.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Authorization authorization = new Authorization();
                 authorization.execute(userName.getText().toString(), userPass.getText().toString());
             }
