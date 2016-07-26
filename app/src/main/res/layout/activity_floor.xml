@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Floor_Activity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -28,7 +29,7 @@
                 android:background="@drawable/rounded_button_menu"
                 android:foreground="@drawable/f1"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -46,7 +47,7 @@
                 android:background="@drawable/rounded_button_menu"
                 android:foreground="@drawable/f2"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
     </LinearLayout>
 
@@ -71,7 +72,7 @@
                 android:background="@drawable/rounded_button_menu"
                 android:foreground="@drawable/f3"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -89,7 +90,7 @@
                 android:background="@drawable/rounded_button_menu"
                 android:foreground="@drawable/f4"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
     </LinearLayout>
 
@@ -114,7 +115,7 @@
                 android:background="@drawable/rounded_button_menu"
                 android:foreground="@drawable/f5"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -132,7 +133,7 @@
                 android:background="@drawable/rounded_button_menu"
                 android:foreground="@drawable/f6"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
     </LinearLayout>
 
@@ -156,7 +157,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_button_menu"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -173,7 +174,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_button_menu"
                 android:textColor="@color/davy_grey"
-                android:textSize="50sp" />
+                android:textSize="35sp" />
         </FrameLayout>
     </LinearLayout>
 

@@ -4,7 +4,8 @@ package com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data;
  * Created by Ywuan on 19/07/2016.
  */
 public class WebServerContract {
-    public static final String BASE_URL = "http://192.168.1.109:8888/NTHU_lib_app";
+    //public static final String BASE_URL = "http://192.168.1.109:8888/NTHU_lib_app";
+    public static final String BASE_URL = "http://s103062325.web.2y.idv.tw/NTHU_lib_app";
 
     // user authorization
     public static final String USER_AUTHORIZATION_URL = "/User_Authorization/user_authorization.php";
