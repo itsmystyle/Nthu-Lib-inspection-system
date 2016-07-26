@@ -75,6 +75,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                     // buffer for debugging.
                     buffer.append(line);
                 }
+                inputStream.close();
 
                 publishProgress(50);
 

@@ -154,18 +154,48 @@
                 android:layout_weight="0.3"
                 android:background="@drawable/background">
 
-                <Button
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sign In"
-                    android:id="@+id/Splash_SignIn"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginRight="80dp"
-                    android:textSize="20sp"
-                    android:background="@drawable/rounded_signin_button"
-                    android:textColor="@color/white"
-                    android:alpha="0.85" />
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2">
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Remeber Me"
+                            android:id="@+id/Splash_checkBox"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:checked="false"
+                            android:textColor="@color/byzantium" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1">
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sign In"
+                            android:id="@+id/Splash_SignIn"
+                            android:layout_gravity="top|center"
+                            android:layout_marginLeft="80dp"
+                            android:layout_marginRight="80dp"
+                            android:textSize="20sp"
+                            android:background="@drawable/rounded_signin_button"
+                            android:textColor="@color/white"
+                            android:alpha="0.85"
+                            android:layout_marginTop="20dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
