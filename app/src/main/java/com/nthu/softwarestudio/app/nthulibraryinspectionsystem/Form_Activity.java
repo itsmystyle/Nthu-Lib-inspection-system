@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,10 @@ public class Form_Activity extends AppCompatActivity {
     Button past2ndday_button;
     Button past1stday_button;
     Button submit_button;
+    Button daily_dialog_submit_button;
+    Button daily_dialog_cancel_button;
+    EditText daily_problem_input;
+    EditText daily_problem_solve_input;
     Spinner spinner;
     Spinner problem_spinner;
     ArrayAdapter<CharSequence> adapter;
@@ -137,7 +142,26 @@ public class Form_Activity extends AppCompatActivity {
                         window_problem.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                                 WindowManager.LayoutParams.WRAP_CONTENT);
 
+                        daily_problem_input = (EditText) problem_dialog.findViewById(R.id.daily_problem_dialog_problem_input);
+                        daily_dialog_submit_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_submit_button);
+                        daily_dialog_cancel_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_cancel_button);
+
+                        daily_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+
+                        daily_dialog_cancel_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                problem_dialog.onBackPressed();
+                            }
+                        });
+
                         problem_dialog.show();
+
                         break;
 
                     case MachineContract.MACHINE_STATE_問題排除:
@@ -149,13 +173,53 @@ public class Form_Activity extends AppCompatActivity {
                         window_solve.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                                 WindowManager.LayoutParams.WRAP_CONTENT);
 
-                        problem_solve_dialog.show();
+                        daily_problem_input = (EditText) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_problem_input);
+                        daily_problem_solve_input = (EditText) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_problem_solve_input);
+                        daily_dialog_submit_button = (Button) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_submit_button);
+                        daily_dialog_cancel_button = (Button) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_cancel_button);
+
+                        daily_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+
+                        daily_dialog_cancel_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                problem_solve_dialog.onBackPressed();
+                            }
+                        });
 
                         problem_spinner = (Spinner) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_spinner);
                         problemAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.problem_list, android.R.layout.simple_spinner_item);
                         problemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         problem_spinner.setAdapter(problemAdapter);
 
+                        problem_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                switch(parent.getItemAtPosition(position).toString()){
+                                    case MachineContract.MACHINE_PROBLEM_其他:
+                                        daily_problem_input.setText("");
+                                        break;
+                                    case  MachineContract.MACHINE_PROBLEM_VGA線被拔掉:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_VGA線被拔掉);
+                                        break;
+                                    default:
+                                        daily_problem_input.setText("");
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
+                        problem_solve_dialog.show();
 
                         break;
 

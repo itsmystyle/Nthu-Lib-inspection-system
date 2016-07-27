@@ -2,7 +2,7 @@
     <string name="app_name">Nthu Library Inspection System</string>
     <string name="button_inspection">設備維護檢視</string>
     <string name="button_history">設備檢視紀錄</string>
-    <string name="button_statistics">統計</string>
+    <string name="button_statistics">狀態</string>
     <string name="button_setting">帳號設定</string>
     <string name="button_sign_out">Sign Out</string>
     <string name="loading_data">Loading Data...</string>
@@ -67,6 +67,9 @@
 
     <string name="daily_problem_dialog_problem_solve">請輸入排除方法...</string>
     <string name="daily_problem_dialog_problem">請輸入問題...</string>
+    <string name="history_all">所有檢視紀錄</string>
+    <string name="history_state">各項檢視紀錄</string>
+    <string name="history_search">搜尋紀錄</string>
 
     <string-array name="condition">
         <item>良好</item>
@@ -78,7 +81,7 @@
 
     <string-array name="problem_list">
         <item>其他</item>
-        <item>vga線被拔掉</item>
+        <item>VGA線被拔掉</item>
         <item>option 2</item>
         <item>option 3</item>
         <item>option 4</item>
