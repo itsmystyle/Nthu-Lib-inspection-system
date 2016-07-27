@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
     private EditText userName;
     private EditText userPass;
     private Button signIn;
+    private CheckBox rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.username_input);
         userPass = (EditText) findViewById(R.id.password_input);
         signIn = (Button) findViewById(R.id.Splash_SignIn);
+        rememberMe = (CheckBox) findViewById(R.id.Splash_checkBox);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +180,10 @@ public class Splash_Login_Activity extends AppCompatActivity {
 
                         AccountHelper accountHelper = new AccountHelper(getApplicationContext());
                         accountHelper.deleteData();
-                        if(accountHelper.insertData(user_name, user_access_token, user_real_name, user_id)){
+
+                        int remeberMe =  rememberMe.isChecked()?1:0;
+
+                        if(accountHelper.insertData(user_name, user_access_token, user_real_name, user_id, remeberMe)){
                             Log.v(LOG_TAG, "inserted to database");
                         }else{
                             Log.e(LOG_TAG, "failed to insert to database");

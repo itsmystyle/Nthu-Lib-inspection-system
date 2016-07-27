@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.DeviceContract;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
 
 public class Floor_Activity extends AppCompatActivity {

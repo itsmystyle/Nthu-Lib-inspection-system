@@ -16,17 +16,18 @@ public class Splash_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         accountHelper = new AccountHelper(getApplicationContext());
-        if(accountHelper.isEmpty()){
-            //empty start new login activity
+        if(!accountHelper.isEmpty() && accountHelper.getRemeberMe() == 1){
+            //not empty and user ticked remember me, start main menu activity
 
-            Intent intent = new Intent(getApplicationContext(), Splash_Login_Activity.class);
+            Intent intent = new Intent(getApplicationContext(), Main_Menu_Activity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
-        }else{
-            //not empty start loading activity
 
-            Intent intent = new Intent(getApplicationContext(), Main_Menu_Activity.class);
+        }else{
+            //empty start new login activity
+
+            Intent intent = new Intent(getApplicationContext(), Splash_Login_Activity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();

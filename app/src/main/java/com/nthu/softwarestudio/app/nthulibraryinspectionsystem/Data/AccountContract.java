@@ -14,6 +14,7 @@ public class AccountContract {
     public static final String COL_3_ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String COL_4_NAME = "NAME";
     public static final String COL_5_FOREIGN_KEY_ID = "FOREIGN_KEY_ID";
+    public static final String COL_6_REMEBER_ME = "REMEMBER_ME";
 
     public static final String CREATE_TABLE =
             "create table " + TABLE_NAME + " (" +
@@ -21,7 +22,8 @@ public class AccountContract {
                     COL_2_USERID + " TEXT, " +
                     COL_3_ACCESS_TOKEN + " TEXT, " +
                     COL_4_NAME + " TEXT, " +
-                    COL_5_FOREIGN_KEY_ID + " INTEGER)";
+                    COL_5_FOREIGN_KEY_ID + " INTEGER, " +
+                    COL_6_REMEBER_ME + " INTEGER)";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 }
