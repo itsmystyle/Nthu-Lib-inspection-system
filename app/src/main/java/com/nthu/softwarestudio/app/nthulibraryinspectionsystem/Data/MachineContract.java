@@ -17,4 +17,7 @@ public class MachineContract {
     public static final int MACHINE_STATE_問題排除 = 3;
     public static final int MACHINE_STATE_通知人員 = 4;
     public static final int MACHINE_STATE_其他 = 5;
+
+    public static final String MACHINE_PROBLEM_其他 = "其他";
+    public static final String MACHINE_PROBLEM_VGA線被拔掉 = "VGA線被拔掉";
 }
