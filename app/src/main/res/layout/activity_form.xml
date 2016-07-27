@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Form_Activity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:background="@drawable/rounded_form"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="編號 : "
+                android:id="@+id/form_machine_id"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="位置 : "
+                android:id="@+id/form_place"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="前7天紀錄"
+                    android:id="@+id/form_past7days"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past7thDate_state_0"
+                        android:id="@+id/form_past7thday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past6thDate_state_0"
+                        android:id="@+id/form_past6thday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past5thDate_state_0"
+                        android:id="@+id/form_past5thday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past4thDate_state_0"
+                        android:id="@+id/form_past4thday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past3rdDate_state_0"
+                        android:id="@+id/form_past3rdhday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past2ndDate_state_0"
+                        android:id="@+id/form_past2ndday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/past1stDate_state_0"
+                        android:id="@+id/form_past1stday_button"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_signin_button"
+                        android:layout_marginRight="2dp"
+                        android:textColor="@color/white"
+                        android:alpha="0.9" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="今天紀錄"
+                    android:id="@+id/form_record"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="20dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/form_spinner"
+                    android:layout_gravity="left|center_vertical"
+                    android:spinnerMode="dropdown"
+                    android:layout_marginRight="20dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="紀錄"
+                android:id="@+id/form_submit_button"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_signin_button"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/white"
+                android:alpha="0.9" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"></FrameLayout>
+</LinearLayout>

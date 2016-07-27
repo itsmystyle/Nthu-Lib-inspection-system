@@ -30,6 +30,8 @@ public class WebServerContract {
 
     // get machine info
     public static final String MACHINE_INFO_URL = "/Machine_Info/machine_info.php";
+    public static final String MACHINE_INFO_FORM_URL = "/Machine_Info/machine_info_form.php";
+    public static final String MACHINE_INFO_POST_FORM_URL = "/Machine_Info/post_today_machine_info.php";
 
 
     //machine info
@@ -42,8 +44,16 @@ public class WebServerContract {
     public static final String MACHINE_MAINTAIN_GROUP = "maintian_group";
     public static final String MACHINE_FLOOR = "floor";
     public static final String MACHINE_ID = "machine_id";
+    public static final String MACHINE_DATE = "date";
     public static final int MACHINE_BRANCH_ZT = 0;
     public static final int MACHINE_BRANCH_RS = 1;
+    public static final String MACHINE_PAST_1ST_DATE = "past1stDate";
+    public static final String MACHINE_PAST_2ND_DATE = "past2ndDate";
+    public static final String MACHINE_PAST_3RD_DATE = "past3rdDate";
+    public static final String MACHINE_PAST_4TH_DATE = "past4thDate";
+    public static final String MACHINE_PAST_5TH_DATE = "past5thDate";
+    public static final String MACHINE_PAST_6TH_DATE = "past6thDate";
+    public static final String MACHINE_PAST_7TH_DATE = "past7thDate";
 
 
     //dailies
@@ -51,6 +61,7 @@ public class WebServerContract {
     public static final String DAILIES_DATE = "date";
     public static final String DAILIES_MACHINE_ID = "machine_id";
     public static final String DAILIES_STATE = "state";
+    public static final String DAILIES_USER_ID = "user_id";;
 
 
     //daily problem
@@ -59,8 +70,7 @@ public class WebServerContract {
     public static final String DAILY_PROBLEM_MACHINE_ID = "machine_id";
     public static final String DAILY_PROBLEM_USER_ID = "user_id";
     public static final String DAILY_PROBLEM_PROBLEM_DETAIL = "problem_detail";
-    public static final String DAILY_PROBLEM_SITUATION = "situation";
     public static final String DAILY_PROBLEM_MAINTAINER_ID = "maintainer_id";
-    public static final String DAILY_PROBLEM_COMMENT = "comment";
+    public static final String DAILY_PROBLEM_SOLVE_DETAIL = "solve_detail";
 
 }
