@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.AccountHelper;
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.MachineContract;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
@@ -75,8 +76,8 @@ public class Device_Activity extends AppCompatActivity {
         }
     }
 
-    private void populateTableButton(List<String> machines_list, int mode) {
-        int tableRow = (int) Math.floor(machines_list.size()/3);
+    private void populateTableButton(final List<String> machines_list, int mode) {
+        final int tableRow = (int) Math.floor(machines_list.size()/3);
         int tableCol = 3;
         int remainderCol = machines_list.size()%3;
         TableRow tRow = null;
@@ -102,6 +103,17 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
                     tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
 
+                    final int finalRow = row;
+                    final int finalCol = col;
+                    tableButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+                            intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(finalRow *3 + finalCol));
+                            startActivity(intent);
+                        }
+                    });
+
                     tRow.addView(tableButton);
                 }
             }
@@ -126,6 +138,16 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setText(machines_list.get(tableRow*3 + col));
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
                     tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+
+                    final int finalCol = col;
+                    tableButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+                            intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(tableRow*3 + finalCol));
+                            startActivity(intent);
+                        }
+                    });
                 }else{
                     tableButton.setText("");
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
@@ -181,8 +203,6 @@ public class Device_Activity extends AppCompatActivity {
                 String urlParameters = WebServerContract.MACHINE_BRANCH + "=" + params[0] + "&" +
                         WebServerContract.MACHINE_FLOOR + "=" + params[1];
 
-                Log.e(LOG_TAG, url.toString() + " " + urlParameters);
-
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -220,8 +240,6 @@ public class Device_Activity extends AppCompatActivity {
                     Log.e(LOG_TAG, "String Buffer Error");
                     return null;
                 }
-
-                Log.e(LOG_TAG, stringBuffer.toString());
 
                 return stringBuffer.toString();
 

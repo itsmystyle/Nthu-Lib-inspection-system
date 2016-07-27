@@ -14,4 +14,73 @@
     <string name="setting_enter_new_password_2">請輸入新密碼...</string>
     <string name="setting_submit">Submit</string>
     <string name="setting_cancel">Cancel</string>
+
+    <string name="past1stDate_state_0">前     1     未紀錄</string>
+    <string name="past1stDate_state_1">前     1     使用中</string>
+    <string name="past1stDate_state_2">前     1     良好</string>
+    <string name="past1stDate_state_3">前     1     問題排除</string>
+    <string name="past1stDate_state_4">前     1     通知人員</string>
+    <string name="past1stDate_state_5">前     1     其他</string>
+
+    <string name="past2ndDate_state_0">前     2     未紀錄</string>
+    <string name="past2ndDate_state_1">前     2     使用中</string>
+    <string name="past2ndDate_state_2">前     2     良好</string>
+    <string name="past2ndDate_state_3">前     2     問題排除</string>
+    <string name="past2ndDate_state_4">前     2     通知人員</string>
+    <string name="past2ndDate_state_5">前     2     其他</string>
+
+    <string name="past3rdDate_state_0">前     3     未紀錄</string>
+    <string name="past3rdDate_state_1">前     3     使用中</string>
+    <string name="past3rdDate_state_2">前     3     良好</string>
+    <string name="past3rdDate_state_3">前     3     問題排除</string>
+    <string name="past3rdDate_state_4">前     3     通知人員</string>
+    <string name="past3rdDate_state_5">前     3     其他</string>
+
+    <string name="past4thDate_state_0">前     4     未紀錄</string>
+    <string name="past4thDate_state_1">前     4     使用中</string>
+    <string name="past4thDate_state_2">前     4     良好</string>
+    <string name="past4thDate_state_3">前     4     問題排除</string>
+    <string name="past4thDate_state_4">前     4     通知人員</string>
+    <string name="past4thDate_state_5">前     4     其他</string>
+
+    <string name="past5thDate_state_0">前     5     未紀錄</string>
+    <string name="past5thDate_state_1">前     5     使用中</string>
+    <string name="past5thDate_state_2">前     5     良好</string>
+    <string name="past5thDate_state_3">前     5     問題排除</string>
+    <string name="past5thDate_state_4">前     5     通知人員</string>
+    <string name="past5thDate_state_5">前     5     其他</string>
+
+    <string name="past6thDate_state_0">前     6     未紀錄</string>
+    <string name="past6thDate_state_1">前     6     使用中</string>
+    <string name="past6thDate_state_2">前     6     良好</string>
+    <string name="past6thDate_state_3">前     6     問題排除</string>
+    <string name="past6thDate_state_4">前     6     通知人員</string>
+    <string name="past6thDate_state_5">前     6     其他</string>
+
+    <string name="past7thDate_state_0">前     7     未紀錄</string>
+    <string name="past7thDate_state_1">前     7     使用中</string>
+    <string name="past7thDate_state_2">前     7     良好</string>
+    <string name="past7thDate_state_3">前     7     問題排除</string>
+    <string name="past7thDate_state_4">前     7     通知人員</string>
+    <string name="past7thDate_state_5">前     7     其他</string>
+
+
+    <string name="daily_problem_dialog_problem_solve">請輸入排除方法...</string>
+    <string name="daily_problem_dialog_problem">請輸入問題...</string>
+
+    <string-array name="condition">
+        <item>良好</item>
+        <item>問題排除</item>
+        <item>通知人員</item>
+        <item>其他</item>
+        <item>使用中</item>
+    </string-array>
+
+    <string-array name="problem_list">
+        <item>其他</item>
+        <item>vga線被拔掉</item>
+        <item>option 2</item>
+        <item>option 3</item>
+        <item>option 4</item>
+    </string-array>
 </resources>

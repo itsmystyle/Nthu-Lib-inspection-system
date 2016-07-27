@@ -31,7 +31,8 @@
         <activity android:name=".RecordCat" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Floor_Activity" />
-        <activity android:name=".Device_Activity"></activity>
+        <activity android:name=".Device_Activity" />
+        <activity android:name=".Form_Activity"></activity>
     </application>
 
 </manifest>

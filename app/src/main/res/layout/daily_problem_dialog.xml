@@ -2,57 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginRight="3dp"
+    android:layout_marginLeft="3dp"
     android:background="@drawable/rounded_dialog_setting">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_form_mini_form">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_button_menu">
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="編號 : "
+                android:id="@+id/daily_problem_dialog_machine_number"
+                android:textSize="20sp"
+                android:textColor="@color/davy_grey" />
+        </FrameLayout>
+    </FrameLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/setting_old_password"
-                    android:id="@+id/setting_old_password"
-                    android:textSize="20sp"
-                    android:textColor="@color/davy_grey" />
-            </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:background="@drawable/rounded_form_mini_form">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:id="@+id/editText_old_password"
-                    android:hint="@string/setting_enter_old_password"
-                    android:textColorHint="@color/dim_foreground_disabled_material_dark"
-                    android:background="@drawable/rounded_button_menu"
-                    android:padding="10dp"
-                    android:textSize="15sp" />
-            </FrameLayout>
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="位置 : "
+                android:id="@+id/daily_problem_dialog_place"
+                android:textSize="20sp"
+                android:textColor="@color/davy_grey" />
+        </FrameLayout>
     </FrameLayout>
 
     <FrameLayout
@@ -70,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp">
 
@@ -78,8 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/setting_new_password"
-                    android:id="@+id/setting_new_password"
+                    android:text="問題"
+                    android:id="@+id/daily_problem_dialog_problem"
                     android:textSize="20sp"
                     android:textColor="@color/davy_grey" />
             </FrameLayout>
@@ -94,13 +96,13 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:id="@+id/editText_new_password"
-                    android:hint="@string/setting_enter_new_password"
+                    android:id="@+id/daily_problem_dialog_problem_input"
+                    android:hint="@string/daily_problem_dialog_problem"
                     android:textColorHint="@color/dim_foreground_disabled_material_dark"
-                    android:padding="10dp"
                     android:background="@drawable/rounded_button_menu"
-                    android:textSize="15sp" />
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:inputType="text" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
@@ -108,48 +110,50 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:background="@drawable/rounded_form_mini_form" >
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_button_menu" >
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp">
+                android:layout_weight="2">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/setting_new_password_2"
-                    android:id="@+id/setting_reenter_new_password"
+                    android:text="照片 : "
+                    android:id="@+id/textView"
                     android:textSize="20sp"
-                    android:textColor="@color/davy_grey" />
+                    android:textColor="@color/davy_grey"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp" />
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp" >
+                android:layout_weight="1"
+                android:layout_marginRight="50dp">
 
-                <EditText
+                <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:id="@+id/editText_reenter_new_password"
-                    android:hint="@string/setting_enter_new_password_2"
-                    android:textColorHint="@color/dim_foreground_disabled_material_dark"
-                    android:background="@drawable/rounded_button_menu"
-                    android:padding="10dp"
+                    android:text="PHOTO"
+                    android:id="@+id/daily_problem_dialog_photo_button"
+                    android:layout_gravity="left|center_vertical"
+                    android:background="@drawable/rounded_signin_button"
+                    android:alpha="0.9"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
             </FrameLayout>
         </LinearLayout>
@@ -171,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_submit"
-                android:id="@+id/button_setting_submit"
+                android:id="@+id/daily_problem_solve_dialog_submit_button"
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_signin_button"
                 android:textColor="@color/white"
@@ -189,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_cancel"
-                android:id="@+id/button_setting_cancel"
+                android:id="@+id/daily_problem_dialog_cancel_button"
                 android:layout_gravity="center"
                 android:background="@drawable/rounded_signin_button"
                 android:textColor="@color/white"
@@ -197,4 +201,5 @@
                 android:textSize="18sp" />
         </FrameLayout>
     </LinearLayout>
+
 </LinearLayout>
