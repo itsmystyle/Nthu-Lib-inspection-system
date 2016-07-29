@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -88,9 +89,8 @@ public class Device_Activity extends AppCompatActivity {
             }else{
                 paraFloor = 'F' + String.valueOf(floor);
             }
-            String urlParameter = null;
             MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
-            machineInfoHistory.execute(urlParameter);
+            machineInfoHistory.execute(paraDate, paraFloor);
 
         }else if(mode == ViewContract.HISTORY_STATE){
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
@@ -101,11 +101,11 @@ public class Device_Activity extends AppCompatActivity {
             }else{
                 paraFloor = 'F' + String.valueOf(floor);
             }
-            String paraState = getIntent().getExtras().getString(WebServerContract.DAILIES_STATE);
+            Integer tmp = getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE);
+            String paraState = tmp.toString();
 
-            String urlParameter = null;
             MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
-            machineInfoHistory.execute(urlParameter);
+            machineInfoHistory.execute(paraDate, paraFloor , paraState);
         }else{
 
         }
@@ -526,12 +526,113 @@ public class Device_Activity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            return null;
+            String outputstring;
+            if (params.length == 0) {
+                return null;
+            }
+
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+            try {
+                final String FORECAST_BASE_URL =
+                        WebServerContract.BASE_URL+ WebServerContract.LIST_ALL_PROBLEN_URL+"?";
+                final String DATE = "date";
+                final String FLOOR = "floor";
+                final String STATE = "state";
+                Uri builtUri;
+                Integer tmp = params.length;
+                Log.v("how long length",tmp.toString());
+
+                if(params.length ==2){
+                    builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                            .appendQueryParameter(DATE, params[0])
+                            .appendQueryParameter(FLOOR, params[1])
+                            .build();
+
+                }
+                else {
+                    builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                            .appendQueryParameter(DATE, params[0])
+                            .appendQueryParameter(FLOOR, params[1])
+                            .appendQueryParameter(STATE, params[2])
+                            .build();
+                }
+
+                URL url = new URL(builtUri.toString());
+
+                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
+
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    return null;
+                }
+                outputstring = buffer.toString();
+
+                Log.v(LOG_TAG, "Forecast string: " + outputstring);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attemping
+                // to parse it.
+                return null;
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+            // This will only happen if there was an error getting or parsing the forecast.
+            return outputstring;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            try{
+                JSONArray reader = new JSONArray(s);
+                int data_length = reader.length();
+                MachineData mdata;
+                for(int i=0;i<data_length;i++){
+                    mdata = new MachineData(
+                            reader.getJSONObject(i).getString("machine_id"),
+                            reader.getJSONObject(i).getString("place"),
+                            reader.getJSONObject(i).getString("date"),
+                            reader.getJSONObject(i).getString("username"),
+                            reader.getJSONObject(i).getString("state"),
+                            reader.getJSONObject(i).getString("problem_detail"),
+                            reader.getJSONObject(i).getString("solve_detail"),
+                            reader.getJSONObject(i).getString("solve_date")
+                    );
+                }
+
+            }catch(JSONException e){e.printStackTrace();}
         }
     }
 

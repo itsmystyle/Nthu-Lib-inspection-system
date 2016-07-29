@@ -3,6 +3,7 @@ package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
 import java.util.Calendar;
+
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
 
 public class History_Activity extends AppCompatActivity {
     private final String LOG_TAG = getClass().getSimpleName();
@@ -53,6 +56,16 @@ public class History_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), History_State_Activity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        search_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra(ViewContract.MODE, ViewContract.INSPECTION);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

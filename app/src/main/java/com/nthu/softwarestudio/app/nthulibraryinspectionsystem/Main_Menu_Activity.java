@@ -82,7 +82,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 try{
                     Thread.sleep(500);
                 }
-                catch (InterruptedException e){};
+                catch (InterruptedException e){}
 
                 int pp=51;
                 for(pp=51 ; pp<100;pp++){
@@ -90,7 +90,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                         Thread.sleep(20);
                         publishProgress(pp);
                     }
-                    catch (InterruptedException e){};
+                    catch (InterruptedException e){}
                 }
 
 
