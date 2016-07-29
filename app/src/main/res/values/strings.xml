@@ -70,6 +70,12 @@
     <string name="history_all">所有檢視紀錄</string>
     <string name="history_state">各項檢視紀錄</string>
     <string name="history_search">搜尋紀錄</string>
+    <string name="history_state_good">良好紀錄</string>
+    <string name="history_state_solved">問題排除紀錄</string>
+    <string name="history_state_problem">通知人員紀錄</string>
+    <string name="history_state_using">使用中紀錄</string>
+    <string name="history_state_noinfo">未紀錄</string>
+    <string name="history_state_other">其他紀錄</string>
 
     <string-array name="condition">
         <item>良好</item>

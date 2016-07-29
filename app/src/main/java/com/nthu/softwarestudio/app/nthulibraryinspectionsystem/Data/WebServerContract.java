@@ -72,5 +72,5 @@ public class WebServerContract {
     public static final String DAILY_PROBLEM_PROBLEM_DETAIL = "problem_detail";
     public static final String DAILY_PROBLEM_MAINTAINER_ID = "maintainer_id";
     public static final String DAILY_PROBLEM_SOLVE_DETAIL = "solve_detail";
-
+    public static final String DAILY_PROBLEM_SOLVE_DATE = "solve_date";
 }

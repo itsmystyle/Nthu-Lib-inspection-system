@@ -51,6 +51,10 @@ public class Form_Activity extends AppCompatActivity {
 
     TextView machine_number_textView;
     TextView place_textView;
+    TextView dialog_problem_machine_number;
+    TextView dialog_problem_machine_place;
+    TextView dialog_solve_machine_number;
+    TextView dialog_solve_machine_place;
     Button past7thday_button;
     Button past6thday_button;
     Button past5thday_button;
@@ -76,6 +80,7 @@ public class Form_Activity extends AppCompatActivity {
     String Past5thDate;
     String Past6thDate;
     String Past7thDate;
+    String MachinePlace;
 
     int state;
 
@@ -131,7 +136,7 @@ public class Form_Activity extends AppCompatActivity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountHelper accountHelper = new AccountHelper(getApplicationContext());
+                final AccountHelper accountHelper = new AccountHelper(getApplicationContext());
                 switch(state){
                     case MachineContract.MACHINE_STATE_通知人員:
                         problem_dialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
@@ -145,11 +150,16 @@ public class Form_Activity extends AppCompatActivity {
                         daily_problem_input = (EditText) problem_dialog.findViewById(R.id.daily_problem_dialog_problem_input);
                         daily_dialog_submit_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_submit_button);
                         daily_dialog_cancel_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_cancel_button);
+                        dialog_problem_machine_number = (TextView) problem_dialog.findViewById(R.id.daily_problem_dialog_machine_number);
+                        dialog_problem_machine_place = (TextView) problem_dialog.findViewById(R.id.daily_problem_dialog_place);
 
                         daily_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
+                                postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER),
+                                        String.valueOf(accountHelper.getForeignKey()),
+                                        daily_problem_input.getText().toString());
                             }
                         });
 
@@ -159,6 +169,9 @@ public class Form_Activity extends AppCompatActivity {
                                 problem_dialog.onBackPressed();
                             }
                         });
+
+                        dialog_problem_machine_number.setText(dialog_problem_machine_number.getText() + getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER));
+                        dialog_problem_machine_place.setText(dialog_problem_machine_place.getText() + MachinePlace);
 
                         problem_dialog.show();
 
@@ -177,20 +190,8 @@ public class Form_Activity extends AppCompatActivity {
                         daily_problem_solve_input = (EditText) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_problem_solve_input);
                         daily_dialog_submit_button = (Button) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_submit_button);
                         daily_dialog_cancel_button = (Button) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_cancel_button);
-
-                        daily_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
-
-                        daily_dialog_cancel_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                problem_solve_dialog.onBackPressed();
-                            }
-                        });
+                        dialog_solve_machine_number = (TextView) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_machine_number);
+                        dialog_solve_machine_place = (TextView) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_place);
 
                         problem_spinner = (Spinner) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_spinner);
                         problemAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.problem_list, android.R.layout.simple_spinner_item);
@@ -218,6 +219,27 @@ public class Form_Activity extends AppCompatActivity {
 
                             }
                         });
+
+                        daily_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
+                                postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER),
+                                        String.valueOf(accountHelper.getForeignKey()),
+                                        daily_problem_input.getText().toString(),
+                                        daily_problem_solve_input.getText().toString());
+                            }
+                        });
+
+                        daily_dialog_cancel_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                problem_solve_dialog.onBackPressed();
+                            }
+                        });
+
+                        dialog_solve_machine_number.setText(dialog_solve_machine_number.getText() + getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER));
+                        dialog_solve_machine_place.setText(dialog_solve_machine_place.getText() + MachinePlace);
 
                         problem_solve_dialog.show();
 
@@ -371,6 +393,7 @@ public class Form_Activity extends AppCompatActivity {
 
                     int tmpState;
                     place_textView.setText(place_textView.getText() + machine_info.getString(WebServerContract.MACHINE_PLACE));
+                    MachinePlace =  machine_info.getString(WebServerContract.MACHINE_PLACE);
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_1ST_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past1stday_button.setText(R.string.past1stDate_state_0);
@@ -619,6 +642,10 @@ public class Form_Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            if(problem_dialog != null) problem_dialog.dismiss();
+            if(problem_solve_dialog != null) problem_solve_dialog.dismiss();
+            onBackPressed();
         }
     }
 }
