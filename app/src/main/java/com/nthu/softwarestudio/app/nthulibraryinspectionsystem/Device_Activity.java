@@ -283,7 +283,7 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), Detail_Activity.class);
                             intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(finalRow *3 + finalCol).getMachine_id());
                             intent.putExtra(WebServerContract.MACHINE_PLACE, machines_list.get(finalRow *3 + finalCol).getPlace());
                             intent.putExtra(WebServerContract.MACHINE_DATE, machines_list.get(finalRow *3 + finalCol).getDate());
@@ -369,7 +369,7 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), Detail_Activity.class);
                             intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(tableRow *3 + finalCol).getMachine_id());
                             intent.putExtra(WebServerContract.MACHINE_PLACE, machines_list.get(tableRow *3 + finalCol).getPlace());
                             intent.putExtra(WebServerContract.MACHINE_DATE, machines_list.get(tableRow *3 + finalCol).getDate());
