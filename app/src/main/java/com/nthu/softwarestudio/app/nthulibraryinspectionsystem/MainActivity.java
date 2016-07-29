@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), History_Activity.class);
-                intent.putExtra(ViewContract.MODE, ViewContract.HISTORY);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

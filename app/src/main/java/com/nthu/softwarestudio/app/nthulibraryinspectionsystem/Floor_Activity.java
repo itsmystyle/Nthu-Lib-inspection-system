@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
 public class Floor_Activity extends AppCompatActivity {
 
@@ -92,72 +93,171 @@ public class Floor_Activity extends AppCompatActivity {
                 }
             });
 
-        }else{
+        }else if(viewMode == ViewContract.HISTORY){
             floor_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_1, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_1, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_2, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_2, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_3, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_3, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_4, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_4, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_5, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_5, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_6, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_6, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_rs1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_RS1, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_RS1, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
 
             floor_rs2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    buttonClicked(ViewContract.FLOOR_RS2, ViewContract.HISTORY);
+                    historyButtonClicked(ViewContract.FLOOR_RS2, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
+        }else if(viewMode == ViewContract.HISTORY_STATE){
+            floor_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    historyStateButtonClicked(ViewContract.FLOOR_1, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_2, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_3, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_4, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_5, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_6, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_rs1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_RS1, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_rs2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_RS2, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+        }else{
+
         }
-
-
-
     }
 
     private void buttonClicked(int floor, int mode){
         Intent intent = new Intent(getApplicationContext(), Device_Activity.class);
         intent.putExtra(ViewContract.FLOOR, floor);
         intent.putExtra(ViewContract.MODE, mode);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private void historyButtonClicked(int floor, int mode, String date){
+        Intent intent = new Intent(getApplicationContext(), Device_Activity.class);
+        intent.putExtra(ViewContract.FLOOR, floor);
+        intent.putExtra(ViewContract.MODE, mode);
+        intent.putExtra(WebServerContract.DAILIES_DATE, date);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private void historyStateButtonClicked(int floor, int mode, String date, int state){
+        Intent intent = new Intent(getApplicationContext(), Device_Activity.class);
+        intent.putExtra(ViewContract.FLOOR, floor);
+        intent.putExtra(ViewContract.MODE, mode);
+        intent.putExtra(WebServerContract.DAILIES_STATE, state);
+        intent.putExtra(WebServerContract.DAILIES_DATE, date);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
