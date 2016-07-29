@@ -254,7 +254,7 @@ public class Device_Activity extends AppCompatActivity {
                             break;
 
                     }
-                    tableButton.setText(machines_list.get(row*3 + col).getMachine_id() + " " + stringState);
+                    tableButton.setText(machines_list.get(row*3 + col).getMachine_id() + "\n" + stringState);
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
                     switch (Integer.parseInt(machines_list.get(row*3 + col).getState())){
                         case MachineContract.MACHINE_STATE_使用中:
@@ -340,9 +340,30 @@ public class Device_Activity extends AppCompatActivity {
                             break;
 
                     }
-                    tableButton.setText(machines_list.get(tableRow*3 + col).getMachine_id() + " " + stringState);
+                    tableButton.setText(machines_list.get(tableRow*3 + col).getMachine_id() + "\n" + stringState);
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
-                    tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                    tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
+                    switch (Integer.parseInt(machines_list.get(tableRow*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_using);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_problem);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_solved);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_others);
+                            break;
+                        default:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
+                            break;
+
+                    }
 
                     final int finalCol = col;
                     tableButton.setOnClickListener(new View.OnClickListener() {
@@ -542,16 +563,18 @@ public class Device_Activity extends AppCompatActivity {
                 final String STATE = "state";
                 Uri builtUri;
                 Integer tmp = params.length;
-                Log.v("how long length",tmp.toString());
 
-                if(params.length ==2){
+                if(params.length == 2){
                     builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                             .appendQueryParameter(DATE, params[0])
                             .appendQueryParameter(FLOOR, params[1])
                             .build();
 
-                }
-                else {
+                }else if(params.length == 1){
+                    builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                            .appendQueryParameter(DATE, params[0])
+                            .build();
+                }else {
                     builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                             .appendQueryParameter(DATE, params[0])
                             .appendQueryParameter(FLOOR, params[1])
@@ -560,8 +583,6 @@ public class Device_Activity extends AppCompatActivity {
                 }
 
                 URL url = new URL(builtUri.toString());
-
-                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -590,11 +611,8 @@ public class Device_Activity extends AppCompatActivity {
                 }
                 outputstring = buffer.toString();
 
-                Log.v(LOG_TAG, "Forecast string: " + outputstring);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
-                // to parse it.
                 return null;
             } finally {
                 if (urlConnection != null) {
@@ -608,7 +626,7 @@ public class Device_Activity extends AppCompatActivity {
                     }
                 }
             }
-            // This will only happen if there was an error getting or parsing the forecast.
+
             return outputstring;
         }
 
@@ -616,8 +634,14 @@ public class Device_Activity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try{
+                if(s.equals("No data\n")){
+                    Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 JSONArray reader = new JSONArray(s);
                 int data_length = reader.length();
+                List<MachineData> listMachineData = new ArrayList<MachineData>();
                 MachineData mdata;
                 for(int i=0;i<data_length;i++){
                     mdata = new MachineData(
@@ -630,7 +654,9 @@ public class Device_Activity extends AppCompatActivity {
                             reader.getJSONObject(i).getString("solve_detail"),
                             reader.getJSONObject(i).getString("solve_date")
                     );
+                    listMachineData.add(mdata);
                 }
+                populateTableButton(listMachineData, ViewContract.HISTORY_STATE);
 
             }catch(JSONException e){e.printStackTrace();}
         }
