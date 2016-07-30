@@ -33,7 +33,8 @@
         <activity android:name=".Floor_Activity" />
         <activity android:name=".Device_Activity" />
         <activity android:name=".Form_Activity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity"
+            android:theme="@style/AppTheme_Search"></activity>
         <activity android:name=".History_Activity" />
         <activity android:name=".History_State_Activity"></activity>
     </application>

@@ -1,6 +1,7 @@
 package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -48,7 +49,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
 
 
             try{
-                Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.LIST_ALL_PROBLEN_URL).buildUpon().build();
+                Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.SEARCH_INDEX).buildUpon().build();
                 URL url = new URL(builtUri.toString());
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -134,6 +135,10 @@ public class Main_Menu_Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            SharedPreferences.Editor editor;
+            editor = getSharedPreferences("NTHI_LIB_pref", MODE_PRIVATE).edit();
+            editor.putString("search_index_prf",s);
+            editor.apply();
 
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);

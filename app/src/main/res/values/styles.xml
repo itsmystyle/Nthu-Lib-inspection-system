@@ -8,6 +8,14 @@
         <item name="colorAccent">@color/byzantium</item>
     </style>
 
+    <style name="AppTheme_Search" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/byzantium1</item>
+        <item name="colorPrimaryDark">@color/byzantium</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
     <style name="AppTheme_Dialog" parent="Theme.AppCompat.Light.Dialog">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/byzantium1</item>
