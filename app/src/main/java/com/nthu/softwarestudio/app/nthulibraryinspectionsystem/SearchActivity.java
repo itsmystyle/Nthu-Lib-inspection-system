@@ -1,8 +1,12 @@
 package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -22,18 +26,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SearchActivity extends AppCompatActivity {
     SearchView msearchview;
+
+    String submittext;
+
+    Calendar calendar;
+    int year_x, month_x, day_x;
 
     private ArrayList<String> SUGGESTIONS;
     private SimpleCursorAdapter mAdapter;
@@ -64,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater minflator = getMenuInflater();
         minflator.inflate(R.menu.search_menu, menu);
-        MenuItem msearchItem = menu.findItem(R.id.search_view);
+        final MenuItem msearchItem = menu.findItem(R.id.search_view);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         msearchview = (SearchView) msearchItem.getActionView();
         msearchview.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -95,20 +110,38 @@ public class SearchActivity extends AppCompatActivity {
         msearchview.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
             @Override
             public boolean onSuggestionClick(int position) {
-                // Your code here
+                Integer tmp = position;
+                Cursor tmpcursor = msearchview.getSuggestionsAdapter().getCursor();
+                if(tmpcursor.getCount() != 0){
+                    tmpcursor.moveToFirst();
+                    for(int i=0;i<position;i++){
+                        tmpcursor.moveToNext();
+                    }
+                }
+                msearchview.setQuery(tmpcursor.getString(1),true);
+                tmpcursor.close();
                 return true;
             }
 
             @Override
             public boolean onSuggestionSelect(int position) {
-                // Your code here
+
                 return true;
             }
         });
         msearchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                return false;
+                submittext=s;
+                calendar = Calendar.getInstance();
+                year_x = calendar.get(Calendar.YEAR);
+                month_x = calendar.get(Calendar.MONTH);
+                day_x = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SearchActivity.this, R.style.AppTheme_Dialog, dpickerListener, year_x, month_x, day_x);
+                datePickerDialog.getDatePicker().setSpinnersShown(true);
+                Dialog showDialog = (Dialog) datePickerDialog;
+                showDialog.show();
+                return true;
             }
 
             @Override
@@ -133,11 +166,31 @@ public class SearchActivity extends AppCompatActivity {
     private void populateAdapter(String query) {
         final MatrixCursor c = new MatrixCursor(new String[]{ BaseColumns._ID, "cityName" });
         for (int i=0; i<SUGGESTIONS.size(); i++) {
-            if (SUGGESTIONS.get(i).toLowerCase().startsWith(query.toLowerCase()))
+            if (SUGGESTIONS.get(i).toLowerCase().contains(query.toLowerCase()))
                 c.addRow(new Object[] {i, SUGGESTIONS.get(i)});
         }
         mAdapter.changeCursor(c);
     }
+
+    private DatePickerDialog.OnDateSetListener dpickerListener =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    String date;
+                    year_x = year;
+                    month_x = monthOfYear + 1;
+                    day_x = dayOfMonth;
+                    if(month_x < 10){
+                        date = year_x + "-0" + month_x + "-" + day_x;
+                    }else{
+                        date = year_x + "-" + month_x + "-" + day_x;
+                    }
+
+                    GetSearchIndex mindex = new GetSearchIndex(SearchActivity.this);
+                    mindex.execute(date,submittext);
+                    Toast.makeText(SearchActivity.this,"searching ...",Toast.LENGTH_SHORT).show();
+                }
+            };
 
 
 

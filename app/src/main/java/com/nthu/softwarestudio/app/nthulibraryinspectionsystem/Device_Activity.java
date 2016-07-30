@@ -2,7 +2,6 @@ package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -107,7 +105,10 @@ public class Device_Activity extends AppCompatActivity {
             MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
             machineInfoHistory.execute(paraDate, paraFloor , paraState);
         }else{
-
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String CurrentDate = dateFormat.format(Calendar.getInstance().getTime());
+            MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
+            machineInfoHistory.execute(CurrentDate);
         }
     }
 
@@ -254,7 +255,7 @@ public class Device_Activity extends AppCompatActivity {
                             break;
 
                     }
-                    tableButton.setText(machines_list.get(row*3 + col).getMachine_id() + " " + stringState);
+                    tableButton.setText(machines_list.get(row*3 + col).getMachine_id() + "\n" + stringState);
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
                     switch (Integer.parseInt(machines_list.get(row*3 + col).getState())){
                         case MachineContract.MACHINE_STATE_使用中:
@@ -283,7 +284,7 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), Detail_Activity.class);
                             intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(finalRow *3 + finalCol).getMachine_id());
                             intent.putExtra(WebServerContract.MACHINE_PLACE, machines_list.get(finalRow *3 + finalCol).getPlace());
                             intent.putExtra(WebServerContract.MACHINE_DATE, machines_list.get(finalRow *3 + finalCol).getDate());
@@ -340,15 +341,36 @@ public class Device_Activity extends AppCompatActivity {
                             break;
 
                     }
-                    tableButton.setText(machines_list.get(tableRow*3 + col).getMachine_id() + " " + stringState);
+                    tableButton.setText(machines_list.get(tableRow*3 + col).getMachine_id() + "\n" + stringState);
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
-                    tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                    tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
+                    switch (Integer.parseInt(machines_list.get(tableRow*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_using);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_problem);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_solved);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_others);
+                            break;
+                        default:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
+                            break;
+
+                    }
 
                     final int finalCol = col;
                     tableButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), Detail_Activity.class);
                             intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(tableRow *3 + finalCol).getMachine_id());
                             intent.putExtra(WebServerContract.MACHINE_PLACE, machines_list.get(tableRow *3 + finalCol).getPlace());
                             intent.putExtra(WebServerContract.MACHINE_DATE, machines_list.get(tableRow *3 + finalCol).getDate());
@@ -373,7 +395,182 @@ public class Device_Activity extends AppCompatActivity {
             }
 
         }else{
+            for(int row = 0; row < tableRow; row++){
+                tRow = new TableRow(this);
+                tRow.setLayoutParams(new TableLayout.LayoutParams(
+                        TableLayout.LayoutParams.MATCH_PARENT,
+                        TableLayout.LayoutParams.MATCH_PARENT
+                ));
+                tableLayout.addView(tRow);
 
+                for(int col = 0; col < tableCol; col++){
+                    Button tableButton = new Button(this);
+                    int size = tRow.getWidth()/3;
+                    tableButton.setLayoutParams(new TableRow.LayoutParams(
+                            size,
+                            TableRow.LayoutParams.MATCH_PARENT,
+                            1f
+                    ));
+                    String stringState;
+                    switch (Integer.parseInt(machines_list.get(row*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            stringState = MachineContract.MACHINE_STATE_STRING_使用中;
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            stringState = MachineContract.MACHINE_STATE_STRING_良好;
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            stringState = MachineContract.MACHINE_STATE_STRING_通知人員;
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            stringState = MachineContract.MACHINE_STATE_STRING_問題排除;
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            stringState = MachineContract.MACHINE_STATE_STRING_其他;
+                            break;
+                        default:
+                            stringState = MachineContract.MACHINE_STATE_STRING_未紀錄;
+                            break;
+
+                    }
+                    tableButton.setText(machines_list.get(row*3 + col).getMachine_id() + "\n" + stringState);
+                    tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
+                    switch (Integer.parseInt(machines_list.get(row*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_using);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_problem);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_solved);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_others);
+                            break;
+                        default:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
+                            break;
+
+                    }
+
+                    final int finalRow = row;
+                    final int finalCol = col;
+                    tableButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), Detail_Activity.class);
+                            intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(finalRow *3 + finalCol).getMachine_id());
+                            intent.putExtra(WebServerContract.MACHINE_PLACE, machines_list.get(finalRow *3 + finalCol).getPlace());
+                            intent.putExtra(WebServerContract.MACHINE_DATE, machines_list.get(finalRow *3 + finalCol).getDate());
+                            intent.putExtra(WebServerContract.DAILIES_USER_ID, machines_list.get(finalRow *3 + finalCol).getUser_name());
+                            intent.putExtra(WebServerContract.DAILIES_STATE, machines_list.get(finalRow *3 + finalCol).getState());
+                            intent.putExtra(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL, machines_list.get(finalRow *3 + finalCol).getProblem());
+                            intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL, machines_list.get(finalRow *3 + finalCol).getSolution());
+                            intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DATE, machines_list.get(finalRow *3 + finalCol).getSolve_date());
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }
+                    });
+
+                    tRow.addView(tableButton);
+                }
+            }
+
+            tRow = new TableRow(this);
+            tRow.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.MATCH_PARENT
+            ));
+            tableLayout.addView(tRow);
+
+            for(int col = 0; col < tableCol; col++){
+                Button tableButton = new Button(this);
+                int size = tRow.getWidth()/3;
+                tableButton.setLayoutParams(new TableRow.LayoutParams(
+                        size,
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        1f
+                ));
+
+                if(col < remainderCol){
+                    String stringState;
+                    switch (Integer.parseInt(machines_list.get(tableRow*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            stringState = MachineContract.MACHINE_STATE_STRING_使用中;
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            stringState = MachineContract.MACHINE_STATE_STRING_良好;
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            stringState = MachineContract.MACHINE_STATE_STRING_通知人員;
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            stringState = MachineContract.MACHINE_STATE_STRING_問題排除;
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            stringState = MachineContract.MACHINE_STATE_STRING_其他;
+                            break;
+                        default:
+                            stringState = MachineContract.MACHINE_STATE_STRING_未紀錄;
+                            break;
+
+                    }
+                    tableButton.setText(machines_list.get(tableRow*3 + col).getMachine_id() + "\n" + stringState);
+                    tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
+                    tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
+                    switch (Integer.parseInt(machines_list.get(tableRow*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_using);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_problem);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_solved);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_others);
+                            break;
+                        default:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
+                            break;
+
+                    }
+
+                    final int finalCol = col;
+                    tableButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), Detail_Activity.class);
+                            intent.putExtra(MachineContract.MACHINE_NUMBER, machines_list.get(tableRow *3 + finalCol).getMachine_id());
+                            intent.putExtra(WebServerContract.MACHINE_PLACE, machines_list.get(tableRow *3 + finalCol).getPlace());
+                            intent.putExtra(WebServerContract.MACHINE_DATE, machines_list.get(tableRow *3 + finalCol).getDate());
+                            intent.putExtra(WebServerContract.DAILIES_USER_ID, machines_list.get(tableRow *3 + finalCol).getUser_name());
+                            intent.putExtra(WebServerContract.DAILIES_STATE, machines_list.get(tableRow *3 + finalCol).getState());
+                            intent.putExtra(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL, machines_list.get(tableRow *3 + finalCol).getProblem());
+                            intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL, machines_list.get(tableRow *3 + finalCol).getSolution());
+                            intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DATE, machines_list.get(tableRow *3 + finalCol).getSolve_date());
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }
+                    });
+
+                }else{
+                    tableButton.setText("");
+                    tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
+                    tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                    tableButton.setVisibility(View.INVISIBLE);
+                }
+
+                tRow.addView(tableButton);
+            }
         }
     }
 
@@ -496,7 +693,7 @@ public class Device_Activity extends AppCompatActivity {
 
                         List<MachineData> machines_list = new ArrayList<MachineData>();
                         for(int i=0; i<machines_info.length(); i++)
-                            machines_list.add(new MachineData(machines_info.getJSONObject(i).getString("machine_id"), null, null, null, null, null, null, null));
+                            machines_list.add(new MachineData(machines_info.getJSONObject(i).getString("machine_id"), null, null, null, null, null, null, null, null, null));
 
                         populateTableButton(machines_list, mode);
                     }
@@ -542,16 +739,18 @@ public class Device_Activity extends AppCompatActivity {
                 final String STATE = "state";
                 Uri builtUri;
                 Integer tmp = params.length;
-                Log.v("how long length",tmp.toString());
 
-                if(params.length ==2){
+                if(params.length == 2){
                     builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                             .appendQueryParameter(DATE, params[0])
                             .appendQueryParameter(FLOOR, params[1])
                             .build();
 
-                }
-                else {
+                }else if(params.length == 1){
+                    builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                            .appendQueryParameter(DATE, params[0])
+                            .build();
+                }else {
                     builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                             .appendQueryParameter(DATE, params[0])
                             .appendQueryParameter(FLOOR, params[1])
@@ -560,8 +759,6 @@ public class Device_Activity extends AppCompatActivity {
                 }
 
                 URL url = new URL(builtUri.toString());
-
-                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -590,11 +787,8 @@ public class Device_Activity extends AppCompatActivity {
                 }
                 outputstring = buffer.toString();
 
-                Log.v(LOG_TAG, "Forecast string: " + outputstring);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
-                // to parse it.
                 return null;
             } finally {
                 if (urlConnection != null) {
@@ -608,7 +802,7 @@ public class Device_Activity extends AppCompatActivity {
                     }
                 }
             }
-            // This will only happen if there was an error getting or parsing the forecast.
+
             return outputstring;
         }
 
@@ -616,8 +810,14 @@ public class Device_Activity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try{
+                if(s.equals("No data\n")){
+                    Toast.makeText(Device_Activity.this, "No data", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 JSONArray reader = new JSONArray(s);
                 int data_length = reader.length();
+                List<MachineData> listMachineData = new ArrayList<MachineData>();
                 MachineData mdata;
                 for(int i=0;i<data_length;i++){
                     mdata = new MachineData(
@@ -628,9 +828,13 @@ public class Device_Activity extends AppCompatActivity {
                             reader.getJSONObject(i).getString("state"),
                             reader.getJSONObject(i).getString("problem_detail"),
                             reader.getJSONObject(i).getString("solve_detail"),
-                            reader.getJSONObject(i).getString("solve_date")
+                            reader.getJSONObject(i).getString("solve_date"),
+                            reader.getJSONObject(i).getString("branch"),
+                            reader.getJSONObject(i).getString("floor")
                     );
+                    listMachineData.add(mdata);
                 }
+                populateTableButton(listMachineData, ViewContract.HISTORY_STATE);
 
             }catch(JSONException e){e.printStackTrace();}
         }

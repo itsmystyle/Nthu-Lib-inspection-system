@@ -7,7 +7,7 @@
 
             <!-- view background color -->
             <solid
-                android:color="@color/byzantium_half">
+                android:color="@color/byzantium4">
             </solid>
 
             <stroke
@@ -27,7 +27,7 @@
             android:shape="rectangle" >
             <!-- view background color -->
             <solid
-                android:color="@color/byzantium2">
+                android:color="@color/byzantium3">
             </solid>
 
             <stroke

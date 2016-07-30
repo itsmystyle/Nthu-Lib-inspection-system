@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
@@ -23,17 +24,16 @@ import java.util.ArrayList;
 /**
  * Created by dodaking on 2016/7/30.
  */
-class GetSearchIndex extends AsyncTask<Integer, Integer, String> {
+class GetSearchIndex extends AsyncTask<String, Integer, String> {
 
-    private Context mContext;
-    private ArrayList<String> mIndex;
+    Context mContext;
 
-    public GetSearchIndex(ArrayList<String> tmpstring){
-        mIndex = tmpstring;
+    public GetSearchIndex(Context tmp){
+        mContext = tmp;
     }
 
     @Override
-    protected String doInBackground(Integer... Progress) {
+    protected String doInBackground(String... Progress) {
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -41,7 +41,9 @@ class GetSearchIndex extends AsyncTask<Integer, Integer, String> {
 
 
         try{
-            Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.SEARCH_INDEX).buildUpon().build();
+
+            Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.LIST_ALL_PROBLEN_URL+"?date="+Progress[0]+"&machine_id="+Progress[1]).buildUpon().build();
+
             URL url = new URL(builtUri.toString());
 
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -122,14 +124,25 @@ class GetSearchIndex extends AsyncTask<Integer, Integer, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        if(!s.equals("Somthing Wrong with database")){
-            try{
-                JSONArray reader = new JSONArray(s);
-                for(int i=0;i<reader.length();i++){
-                    mIndex.add(reader.getJSONObject(i).getString("machine_id"));
-                }
+        try{
+            if(s.equals("No data")){
+                Toast.makeText(mContext,s,Toast.LENGTH_LONG).show();
             }
-            catch(JSONException e){e.printStackTrace();}
-        }
+            else{
+                JSONArray reader =new JSONArray(s);
+                Intent intent = new Intent(mContext, Detail_Activity.class);
+                intent.putExtra(WebServerContract.MACHINE_NUMBER,reader.getJSONObject(0).getString("machine_id"));
+                intent.putExtra(WebServerContract.MACHINE_PLACE,reader.getJSONObject(0).getString("place"));
+                intent.putExtra(WebServerContract.MACHINE_DATE,reader.getJSONObject(0).getString("date"));
+                intent.putExtra(WebServerContract.DAILIES_USER_ID,reader.getJSONObject(0).getString("username"));
+                intent.putExtra(WebServerContract.DAILIES_STATE,reader.getJSONObject(0).getString("state"));
+                intent.putExtra(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL,reader.getJSONObject(0).getString("problem_detail"));
+                intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL,reader.getJSONObject(0).getString("solve_detail"));
+                intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DATE,reader.getJSONObject(0).getString("solve_date"));
+                mContext.startActivity(intent);
+            }
+        }catch (JSONException e){e.printStackTrace();}
+
+
     }
 }

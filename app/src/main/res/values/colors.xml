@@ -19,10 +19,12 @@
   <color name="gainsboro_half">#2fe0dfdf</color>
   <color name="melon">#ffb5b5</color>
   <color name="melon_half">#56ffb5b5</color>
-  <color name="yellow_green">#76d321</color>
+  <color name="yellow_green">#8276d321</color>
   <color name="yellow_green_half">#5876d321</color>
   <color name="byzantium2">#663274</color>
-  <color name="pumpkin">#f3770f</color>
+  <color name="byzantium3">#8275206a</color>
+  <color name="byzantium4">#3075206a</color>
+  <color name="pumpkin">#82f3770f</color>
   <color name="pumpkin_half">#5af3770f</color>
 </resources>
 

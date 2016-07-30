@@ -65,7 +65,7 @@ public class History_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra(ViewContract.MODE, ViewContract.INSPECTION);
+                intent.putExtra(ViewContract.MODE, ViewContract.SEARCH);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

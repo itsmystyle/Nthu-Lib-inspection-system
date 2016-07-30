@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Form_Activity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.7"
+        android:background="@drawable/rounded_form"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="編號 : "
+                android:id="@+id/detail_machine_id"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="位置 : "
+                android:id="@+id/detail_place"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="日期 : "
+                android:id="@+id/detail_date"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="巡檢人 : "
+                android:id="@+id/detail_user_name"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="狀態 : "
+                android:id="@+id/detail_state"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="問題 : "
+                android:id="@+id/detail_problem"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="排除方法 : "
+                android:id="@+id/detail_solution"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="排除日期 : "
+                android:id="@+id/detail_solved_date"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"></FrameLayout>
+</LinearLayout>

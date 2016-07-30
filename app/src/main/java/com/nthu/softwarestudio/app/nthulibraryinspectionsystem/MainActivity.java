@@ -57,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        statisticButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Device_Activity.class);
+                intent.putExtra(ViewContract.MODE, ViewContract.STATE);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

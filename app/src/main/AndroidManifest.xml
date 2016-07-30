@@ -36,7 +36,8 @@
         <activity android:name=".SearchActivity"
             android:theme="@style/AppTheme_Search"></activity>
         <activity android:name=".History_Activity" />
-        <activity android:name=".History_State_Activity"></activity>
+        <activity android:name=".History_State_Activity" />
+        <activity android:name=".Detail_Activity"></activity>
     </application>
 
 </manifest>
