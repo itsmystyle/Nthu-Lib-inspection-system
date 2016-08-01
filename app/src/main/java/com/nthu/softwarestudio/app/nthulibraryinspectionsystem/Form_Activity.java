@@ -159,7 +159,8 @@ public class Form_Activity extends AppCompatActivity {
                                 PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
                                 postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER),
                                         String.valueOf(accountHelper.getForeignKey()),
-                                        daily_problem_input.getText().toString());
+                                        daily_problem_input.getText().toString(),
+                                        accountHelper.getUserName());
                             }
                         });
 
@@ -227,7 +228,8 @@ public class Form_Activity extends AppCompatActivity {
                                 postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER),
                                         String.valueOf(accountHelper.getForeignKey()),
                                         daily_problem_input.getText().toString(),
-                                        daily_problem_solve_input.getText().toString());
+                                        daily_problem_solve_input.getText().toString(),
+                                        accountHelper.getUserName());
                             }
                         });
 
@@ -553,7 +555,8 @@ public class Form_Activity extends AppCompatActivity {
                                 WebServerContract.DAILIES_DATE + "=" + CurrentDate + "&" +
                                 WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
                                 WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                                WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_通知人員;
+                                WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_通知人員 + "&" +
+                                WebServerContract.DAILIES_USER_NAME + "=" + URLEncoder.encode(params[3], "utf-8");
                         break;
 
                     case MachineContract.MACHINE_STATE_問題排除:
@@ -562,7 +565,8 @@ public class Form_Activity extends AppCompatActivity {
                                 WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
                                 WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
                                 WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_問題排除 + "&" +
-                                WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL + "=" + URLEncoder.encode(params[3], "utf-8");
+                                WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
+                                WebServerContract.DAILIES_USER_NAME + "=" + URLEncoder.encode(params[4], "utf-8");
                         break;
 
                     default:

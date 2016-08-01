@@ -62,7 +62,8 @@ public class WebServerContract {
     public static final String DAILIES_DATE = "date";
     public static final String DAILIES_MACHINE_ID = "machine_id";
     public static final String DAILIES_STATE = "state";
-    public static final String DAILIES_USER_ID = "user_id";;
+    public static final String DAILIES_USER_ID = "user_id";
+    public static final String DAILIES_USER_NAME = "user_name";
 
 
     //daily problem
