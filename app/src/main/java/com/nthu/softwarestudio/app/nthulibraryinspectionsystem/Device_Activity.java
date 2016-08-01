@@ -2103,6 +2103,8 @@ public class Device_Activity extends AppCompatActivity {
 
                 URL url = new URL(builtUri.toString());
 
+                Log.v("date look look",builtUri.toString());
+
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -2151,6 +2153,9 @@ public class Device_Activity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+
+            Log.v("date look look",s);
+
             super.onPostExecute(s);
             try{
                 if(s.equals("No data\n")){

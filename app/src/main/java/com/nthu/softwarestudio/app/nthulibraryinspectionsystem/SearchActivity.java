@@ -180,11 +180,15 @@ public class SearchActivity extends AppCompatActivity {
                     year_x = year;
                     month_x = monthOfYear + 1;
                     day_x = dayOfMonth;
-                    if(month_x < 10){
-                        date = year_x + "-0" + month_x + "-" + day_x;
-                    }else{
-                        date = year_x + "-" + month_x + "-" + day_x;
-                    }
+                    String MON = String.valueOf(month_x);
+
+                    if(month_x < 10) MON = "0"+MON;
+
+                    String DA = String.valueOf(day_x);
+
+                    if(month_x < 10) DA = "0"+DA;
+
+                    date = year_x +"-"+ MON + "-"+DA;
 
                     GetSearchIndex mindex = new GetSearchIndex(SearchActivity.this);
                     mindex.execute(date,submittext);
