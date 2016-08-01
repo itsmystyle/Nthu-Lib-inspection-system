@@ -2283,7 +2283,25 @@ public class Device_Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+            try{
+                if(s == null || s.length() == 0){
+                    Toast.makeText(getApplicationContext(), "Failed update.", Toast.LENGTH_SHORT).show();
+                }
+
+                JSONObject response = new JSONObject(s);
+                String web_server = response.getString("web_server");
+                String machine_id = response.getString(WebServerContract.MACHINE_ID);
+                if(web_server.equals("failed")){
+                    Toast.makeText(getApplicationContext(), "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Updated " + machine_id, Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.getMessage());
+                e.printStackTrace();
+            } finally {
+            }
         }
     }
 }
