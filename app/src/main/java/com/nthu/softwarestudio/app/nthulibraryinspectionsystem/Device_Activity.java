@@ -2103,7 +2103,7 @@ public class Device_Activity extends AppCompatActivity {
 
                 URL url = new URL(builtUri.toString());
 
-                Log.v("date look look",builtUri.toString());
+                //Log.v("date look look",builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -2214,7 +2214,7 @@ public class Device_Activity extends AppCompatActivity {
                         WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
                         WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_良好;
 
-                Log.e(LOG_TAG, url + " " + urlParameters);
+                //Log.e(LOG_TAG, url + " " + urlParameters);
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -2285,16 +2285,16 @@ public class Device_Activity extends AppCompatActivity {
             super.onPostExecute(s);
             try{
                 if(s == null || s.length() == 0){
-                    Toast.makeText(getApplicationContext(), "Failed update.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Device_Activity.this, "Failed update.", Toast.LENGTH_SHORT).show();
                 }
 
                 JSONObject response = new JSONObject(s);
                 String web_server = response.getString("web_server");
                 String machine_id = response.getString(WebServerContract.MACHINE_ID);
                 if(web_server.equals("failed")){
-                    Toast.makeText(getApplicationContext(), "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Device_Activity.this, "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), "Updated " + machine_id, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Device_Activity.this, "Updated " + machine_id, Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {

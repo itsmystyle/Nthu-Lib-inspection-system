@@ -50,7 +50,7 @@ class GetSearchIndex extends AsyncTask<String, Integer, String> {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            Log.v("Look url:", "Built URI " + builtUri.toString());
+            //Log.v("Look url:", "Built URI " + builtUri.toString());
 
             InputStream inputStream = urlConnection.getInputStream();
             StringBuffer buffer = new StringBuffer();
@@ -95,7 +95,7 @@ class GetSearchIndex extends AsyncTask<String, Integer, String> {
             }
             alldatastring = buffer.toString();
 
-            Log.v("take a look:  ", "Forecast string: " + alldatastring);
+            //Log.v("take a look:  ", "Forecast string: " + alldatastring);
 
         } catch (IOException e) {
             Log.e("Somthing Wrong", "Error ", e);

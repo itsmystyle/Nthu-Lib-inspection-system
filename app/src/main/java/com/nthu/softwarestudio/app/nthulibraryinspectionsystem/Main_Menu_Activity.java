@@ -56,7 +56,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
 
-                Log.v("Look url:", "Built URI " + builtUri.toString());
+                //Log.v("Look url:", "Built URI " + builtUri.toString());
 
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();
@@ -101,7 +101,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 }
                 alldatastring = buffer.toString();
 
-                Log.v("take a look:  ", "Forecast string: " + alldatastring);
+                //Log.v("take a look:  ", "Forecast string: " + alldatastring);
 
             } catch (IOException e) {
                 Log.e("Somthing Wrong", "Error ", e);
