@@ -142,6 +142,7 @@ public class Form_Activity extends AppCompatActivity {
                         problem_dialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
                         problem_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         problem_dialog.setContentView(R.layout.daily_problem_dialog);
+                        problem_dialog.setCanceledOnTouchOutside(false);
 
                         Window window_problem = problem_dialog.getWindow();
                         window_problem.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
@@ -182,6 +183,7 @@ public class Form_Activity extends AppCompatActivity {
                         problem_solve_dialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
                         problem_solve_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         problem_solve_dialog.setContentView(R.layout.daily_problem_solve_dialog);
+                        problem_solve_dialog.setCanceledOnTouchOutside(false);
 
                         Window window_solve = problem_solve_dialog.getWindow();
                         window_solve.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
