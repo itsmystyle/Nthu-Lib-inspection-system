@@ -2103,7 +2103,7 @@ public class Device_Activity extends AppCompatActivity {
 
                 URL url = new URL(builtUri.toString());
 
-                Log.v("date look look",builtUri.toString());
+                //Log.v("date look look",builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -2214,7 +2214,7 @@ public class Device_Activity extends AppCompatActivity {
                         WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
                         WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_良好;
 
-                Log.e(LOG_TAG, url + " " + urlParameters);
+                //Log.e(LOG_TAG, url + " " + urlParameters);
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
