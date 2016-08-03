@@ -2285,16 +2285,16 @@ public class Device_Activity extends AppCompatActivity {
             super.onPostExecute(s);
             try{
                 if(s == null || s.length() == 0){
-                    Toast.makeText(getApplicationContext(), "Failed update.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Device_Activity.this, "Failed update.", Toast.LENGTH_SHORT).show();
                 }
 
                 JSONObject response = new JSONObject(s);
                 String web_server = response.getString("web_server");
                 String machine_id = response.getString(WebServerContract.MACHINE_ID);
                 if(web_server.equals("failed")){
-                    Toast.makeText(getApplicationContext(), "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Device_Activity.this, "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(), "Updated " + machine_id, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Device_Activity.this,  machine_id+" 狀態已設為良好", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {

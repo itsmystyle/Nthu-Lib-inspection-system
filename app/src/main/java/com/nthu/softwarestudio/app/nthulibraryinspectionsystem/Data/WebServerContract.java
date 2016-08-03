@@ -8,8 +8,8 @@ public class WebServerContract {
      * Base url link to server
      */
     //public static final String BASE_URL = "http://192.168.1.109:8888/NTHU_lib_app";
-    public static final String BASE_URL = "http://192.168.1.105:8888/Nthu_lib_app";
-    //public static final String BASE_URL = "http://s103062325.web.2y.idv.tw/NTHU_lib_app";
+    //public static final String BASE_URL = "http://192.168.1.105:8888/Nthu_lib_app";
+    public static final String BASE_URL = "http://s103062325.web.2y.idv.tw/NTHU_lib_app";
 
     // user authorization
     public static final String USER_AUTHORIZATION_URL = "/User_Authorization/user_authorization.php";

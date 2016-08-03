@@ -186,7 +186,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     String DA = String.valueOf(day_x);
 
-                    if(month_x < 10) DA = "0"+DA;
+                    if(day_x < 10) DA = "0"+DA;
 
                     date = year_x +"-"+ MON + "-"+DA;
 
