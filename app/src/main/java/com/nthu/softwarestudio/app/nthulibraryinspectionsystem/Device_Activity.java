@@ -125,6 +125,7 @@ public class Device_Activity extends AppCompatActivity {
 
         }else if(mode == ViewContract.HISTORY_STATE){
             //change you code here for 語言學習區 and 學習共享區 using ViewContract.FLOOR_2_學習共享區 and ViewContract.FLOOR_3_語言學習區
+            //remember to change here too!
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
             String paraFloor;
             if(floor > 6){
