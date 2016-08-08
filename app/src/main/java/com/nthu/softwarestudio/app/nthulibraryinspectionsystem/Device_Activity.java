@@ -53,6 +53,8 @@ public class Device_Activity extends AppCompatActivity {
     TableLayout tableLayout_6;
     TableLayout tableLayout_rs1;
     TableLayout tableLayout_rs2;
+    TableLayout tableLayout_sharing;
+    TableLayout tableLayout_language;
     int mode;
     int floor;
 
@@ -78,6 +80,8 @@ public class Device_Activity extends AppCompatActivity {
         tableLayout_6 = (TableLayout) findViewById(R.id.table_layout_f6);
         tableLayout_rs1 = (TableLayout) findViewById(R.id.table_layout_rsf1);
         tableLayout_rs2 = (TableLayout) findViewById(R.id.table_layout_rsf2);
+        tableLayout_sharing = (TableLayout) findViewById(R.id.table_layout_sharing);
+        tableLayout_language = (TableLayout) findViewById(R.id.table_layout_language);
 
         mode = getIntent().getExtras().getInt(ViewContract.MODE);
         floor = getIntent().getExtras().getInt(ViewContract.FLOOR);
@@ -93,6 +97,7 @@ public class Device_Activity extends AppCompatActivity {
 
             machineInfoInspection.execute(Integer.toString(branch), Integer.toString(floor));
         }else if(mode == ViewContract.HISTORY){
+            //change you code here for 語言學習區 and 學習共享區 using ViewContract.FLOOR_2_學習共享區 and ViewContract.FLOOR_3_語言學習區
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
             String paraFloor;
             if(floor > 6){
@@ -105,6 +110,7 @@ public class Device_Activity extends AppCompatActivity {
             machineInfoHistory.execute(paraDate, paraFloor);
 
         }else if(mode == ViewContract.HISTORY_STATE){
+            //change you code here for 語言學習區 and 學習共享區 using ViewContract.FLOOR_2_學習共享區 and ViewContract.FLOOR_3_語言學習區
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
             String paraFloor;
             if(floor > 6){
@@ -142,7 +148,7 @@ public class Device_Activity extends AppCompatActivity {
                 tableLayout.addView(tRow);
 
                 for(int col = 0; col < tableCol; col++){
-                    Button tableButton = new Button(this);
+                    final Button tableButton = new Button(this);
                     int size = tRow.getWidth()/3;
                     tableButton.setLayoutParams(new TableRow.LayoutParams(
                             size,
@@ -151,7 +157,27 @@ public class Device_Activity extends AppCompatActivity {
                     ));
                     tableButton.setText(machines_list.get(row*3 + col).getMachine_id());
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
-                    tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                    switch (Integer.parseInt(machines_list.get(row*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_using);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_problem);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_solved);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_others);
+                            break;
+                        default:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
+                            break;
+
+                    }
 
                     final int finalRow = row;
                     final int finalCol = col;
@@ -168,7 +194,7 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
+                            PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask(tableButton);
                             postTodayMachineInfoAsyncTask.execute(machines_list.get(finalRow *3 + finalCol).getMachine_id(),
                                     String.valueOf(accountHelper.getForeignKey()));
                             return true;
@@ -187,7 +213,7 @@ public class Device_Activity extends AppCompatActivity {
             tableLayout.addView(tRow);
 
             for(int col = 0; col < tableCol; col++){
-                Button tableButton = new Button(this);
+                final Button tableButton = new Button(this);
                 int size = tRow.getWidth()/3;
                 tableButton.setLayoutParams(new TableRow.LayoutParams(
                         size,
@@ -198,7 +224,27 @@ public class Device_Activity extends AppCompatActivity {
                 if(col < remainderCol){
                     tableButton.setText(machines_list.get(tableRow*3 + col).getMachine_id());
                     tableButton.setTextSize(getResources().getDimension(R.dimen.tableButtonSize));
-                    tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                    switch (Integer.parseInt(machines_list.get(tableRow*3 + col).getState())){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_using);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_menu);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_problem);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_solved);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_others);
+                            break;
+                        default:
+                            tableButton.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
+                            break;
+
+                    }
 
                     final int finalCol = col;
                     tableButton.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +259,7 @@ public class Device_Activity extends AppCompatActivity {
                     tableButton.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
+                            PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask(tableButton);
                             postTodayMachineInfoAsyncTask.execute(machines_list.get(tableRow *3 + finalCol).getMachine_id(),
                                     String.valueOf(accountHelper.getForeignKey()));
                             return true;
@@ -417,6 +463,8 @@ public class Device_Activity extends AppCompatActivity {
             final List<MachineData> machines_list_f6 = new ArrayList<MachineData>();
             final List<MachineData> machines_list_rsf1 = new ArrayList<MachineData>();
             final List<MachineData> machines_list_rsf2 = new ArrayList<MachineData>();
+            final List<MachineData> machines_list_sharing = new ArrayList<MachineData>();
+            final List<MachineData> machines_list_language = new ArrayList<MachineData>();
 
             for (int i = 0; i < machines_list.size(); i++) {
                 if (machines_list.get(i).getBranch().equals("總圖")) {
@@ -2202,6 +2250,12 @@ public class Device_Activity extends AppCompatActivity {
         BufferedReader bufferedReader;
         Boolean networkService = true;
 
+        Button selectedButton = null;
+
+        public PostTodayMachineInfoAsyncTask(Button selectedButton) {
+            this.selectedButton = selectedButton;
+        }
+
         @Override
         protected String doInBackground(String... params) {
             try{
@@ -2295,6 +2349,7 @@ public class Device_Activity extends AppCompatActivity {
                     Toast.makeText(Device_Activity.this, "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(Device_Activity.this,  machine_id+" 狀態已設為良好", Toast.LENGTH_SHORT).show();
+                    selectedButton.setBackgroundResource(R.drawable.rounded_button_menu);
                 }
 
             } catch (JSONException e) {
