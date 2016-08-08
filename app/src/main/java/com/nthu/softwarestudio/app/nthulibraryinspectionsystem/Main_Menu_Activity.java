@@ -49,9 +49,24 @@ public class Main_Menu_Activity extends AppCompatActivity {
 
 
             try{
+
+                Uri b2 = Uri.parse(WebServerContract.BASE_URL+WebServerContract.UPDATE_DATA).buildUpon().build();
+                URL u2 =new URL(b2.toString());
+                HttpURLConnection uc2 = (HttpURLConnection)u2.openConnection();
+                uc2.setRequestMethod("GET");
+                uc2.connect();
+                uc2.getInputStream();
+                if(uc2!=null) uc2.disconnect();
+                Log.v("Look url:", "Built URI " + b2.toString());
+                publishProgress(25);
+                try{
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException e){}
+
+
                 Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.SEARCH_INDEX).buildUpon().build();
                 URL url = new URL(builtUri.toString());
-
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
