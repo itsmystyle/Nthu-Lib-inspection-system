@@ -19,6 +19,8 @@ public class Floor_Activity extends AppCompatActivity {
     Button floor_6;
     Button floor_rs1;
     Button floor_rs2;
+    Button floor_3_language;
+    Button floor_2_sharing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class Floor_Activity extends AppCompatActivity {
         floor_6 = (Button) findViewById(R.id.button_f6);
         floor_rs1 = (Button) findViewById(R.id.button_rsf1);
         floor_rs2 = (Button) findViewById(R.id.button_rsf2);
+        floor_3_language = (Button) findViewById(R.id.button_f3_language);
+        floor_2_sharing = (Button) findViewById(R.id.button_f2_sharing);
 
         int viewMode = getIntent().getExtras().getInt(ViewContract.MODE);
 
@@ -90,6 +94,20 @@ public class Floor_Activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     buttonClicked(ViewContract.FLOOR_RS2, ViewContract.INSPECTION);
+                }
+            });
+
+            floor_3_language.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buttonClicked(ViewContract.FLOOR_3_語言學習區, ViewContract.INSPECTION);
+                }
+            });
+
+            floor_2_sharing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buttonClicked(ViewContract.FLOOR_2_學習共享區, ViewContract.INSPECTION);
                 }
             });
 
@@ -157,11 +175,27 @@ public class Floor_Activity extends AppCompatActivity {
                             getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
                 }
             });
+
+            floor_3_language.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyButtonClicked(ViewContract.FLOOR_3_語言學習區, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
+                }
+            });
+
+            floor_2_sharing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyButtonClicked(ViewContract.FLOOR_2_學習共享區, ViewContract.HISTORY,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE));
+                }
+            });
+
         }else if(viewMode == ViewContract.HISTORY_STATE){
             floor_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     historyStateButtonClicked(ViewContract.FLOOR_1, ViewContract.HISTORY_STATE,
                             getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
                             getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
@@ -230,6 +264,25 @@ public class Floor_Activity extends AppCompatActivity {
                             getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
                 }
             });
+
+            floor_3_language.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_3_語言學習區, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
+            floor_2_sharing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    historyStateButtonClicked(ViewContract.FLOOR_2_學習共享區, ViewContract.HISTORY_STATE,
+                            getIntent().getExtras().getString(WebServerContract.DAILIES_DATE),
+                            getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE));
+                }
+            });
+
         }else{
 
         }

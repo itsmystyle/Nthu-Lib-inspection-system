@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="前7天紀錄"
+                    android:text="前7次紀錄"
                     android:id="@+id/form_past7days"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center_vertical" />
@@ -97,10 +97,10 @@
                         android:text="@string/past7thDate_state_0"
                         android:id="@+id/form_past7thday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -108,10 +108,10 @@
                         android:text="@string/past6thDate_state_0"
                         android:id="@+id/form_past6thday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -119,10 +119,10 @@
                         android:text="@string/past5thDate_state_0"
                         android:id="@+id/form_past5thday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -130,10 +130,10 @@
                         android:text="@string/past4thDate_state_0"
                         android:id="@+id/form_past4thday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -141,10 +141,10 @@
                         android:text="@string/past3rdDate_state_0"
                         android:id="@+id/form_past3rdhday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -152,10 +152,10 @@
                         android:text="@string/past2ndDate_state_0"
                         android:id="@+id/form_past2ndday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -163,10 +163,10 @@
                         android:text="@string/past1stDate_state_0"
                         android:id="@+id/form_past1stday_button"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_signin_button"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/white"
-                        android:alpha="0.9" />
+                        android:textColor="@android:color/background_dark"
+                        android:alpha="0.9"
+                        android:background="@drawable/rounded_button_menu" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
