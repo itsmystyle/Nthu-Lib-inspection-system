@@ -28,6 +28,7 @@ public class WebServerContract {
     // list
     public static final String LIST_ALL_PROBLEN_URL = "/list_perticulor_problem.php";
     public static final String SEARCH_INDEX = "/search_index.php";
+    public static final String UPDATE_DATA = "/data_program.php";
 
     // get machine info
     public static final String MACHINE_INFO_URL = "/Machine_Info/machine_info.php";
