@@ -13,7 +13,9 @@ public class ViewContract {
     public static final String FLOOR = "floor";
     public static final int FLOOR_1 = 1;
     public static final int FLOOR_2 = 2;
+    public static final int FLOOR_2_學習共享區 = 21;
     public static final int FLOOR_3 = 3;
+    public static final int FLOOR_3_語言學習區 = 31;
     public static final int FLOOR_4 = 4;
     public static final int FLOOR_5 = 5;
     public static final int FLOOR_6 = 6;

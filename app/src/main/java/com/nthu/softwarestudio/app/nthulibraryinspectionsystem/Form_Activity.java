@@ -401,126 +401,175 @@ public class Form_Activity extends AppCompatActivity {
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_1ST_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past1stday_button.setText(R.string.past1stDate_state_0);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past1stday_button.setText(R.string.past1stDate_state_1);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past1stday_button.setText(R.string.past1stDate_state_2);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past1stday_button.setText(R.string.past1stDate_state_3);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past1stday_button.setText(R.string.past1stDate_state_4);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past1stday_button.setText(R.string.past1stDate_state_5);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past1stday_button.setText(R.string.past1stDate_state_0);
+                            past1stday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
 
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_2ND_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past2ndday_button.setText(R.string.past2ndDate_state_0);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past2ndday_button.setText(R.string.past2ndDate_state_1);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past2ndday_button.setText(R.string.past2ndDate_state_2);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past2ndday_button.setText(R.string.past2ndDate_state_3);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past2ndday_button.setText(R.string.past2ndDate_state_4);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past2ndday_button.setText(R.string.past2ndDate_state_5);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past2ndday_button.setText(R.string.past2ndDate_state_0);
+                            past2ndday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
 
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_3RD_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past3rdday_button.setText(R.string.past3rdDate_state_0);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past3rdday_button.setText(R.string.past3rdDate_state_1);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past3rdday_button.setText(R.string.past3rdDate_state_2);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past3rdday_button.setText(R.string.past3rdDate_state_3);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past3rdday_button.setText(R.string.past3rdDate_state_4);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past3rdday_button.setText(R.string.past3rdDate_state_5);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past3rdday_button.setText(R.string.past3rdDate_state_0);
+                            past3rdday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
 
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_4TH_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past4thday_button.setText(R.string.past4thDate_state_0);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past4thday_button.setText(R.string.past4thDate_state_1);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past4thday_button.setText(R.string.past4thDate_state_2);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past4thday_button.setText(R.string.past4thDate_state_3);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past4thday_button.setText(R.string.past4thDate_state_4);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past4thday_button.setText(R.string.past4thDate_state_5);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past4thday_button.setText(R.string.past4thDate_state_0);
+                            past4thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
 
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_5TH_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past5thday_button.setText(R.string.past5thDate_state_0);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past5thday_button.setText(R.string.past5thDate_state_1);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past5thday_button.setText(R.string.past5thDate_state_2);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past5thday_button.setText(R.string.past5thDate_state_3);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past5thday_button.setText(R.string.past5thDate_state_4);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past5thday_button.setText(R.string.past5thDate_state_5);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past5thday_button.setText(R.string.past5thDate_state_0);
+                            past5thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
 
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_6TH_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past6thday_button.setText(R.string.past6thDate_state_0);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past6thday_button.setText(R.string.past6thDate_state_1);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past6thday_button.setText(R.string.past6thDate_state_2);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past6thday_button.setText(R.string.past6thDate_state_3);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past6thday_button.setText(R.string.past6thDate_state_4);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past6thday_button.setText(R.string.past6thDate_state_5);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past6thday_button.setText(R.string.past6thDate_state_0);
+                            past6thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
 
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_7TH_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past7thday_button.setText(R.string.past7thDate_state_0);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                         case MachineContract.MACHINE_STATE_使用中: past7thday_button.setText(R.string.past7thDate_state_1);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_history_using);
                             break;
                         case MachineContract.MACHINE_STATE_良好: past7thday_button.setText(R.string.past7thDate_state_2);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_menu);
                             break;
                         case MachineContract.MACHINE_STATE_問題排除: past7thday_button.setText(R.string.past7thDate_state_3);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_history_solved);
                             break;
                         case MachineContract.MACHINE_STATE_通知人員: past7thday_button.setText(R.string.past7thDate_state_4);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_history_problem);
                             break;
                         case MachineContract.MACHINE_STATE_其他: past7thday_button.setText(R.string.past7thDate_state_5);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_history_others);
                             break;
                         default: past7thday_button.setText(R.string.past7thDate_state_0);
+                            past7thday_button.setBackgroundResource(R.drawable.rounded_button_history_noinfo);
                             break;
                     }
                 }
@@ -579,7 +628,7 @@ public class Form_Activity extends AppCompatActivity {
                         break;
                 }
 
-                Log.e(LOG_TAG, url + " " + urlParameters);
+                //Log.e(LOG_TAG, url + " " + urlParameters);
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
