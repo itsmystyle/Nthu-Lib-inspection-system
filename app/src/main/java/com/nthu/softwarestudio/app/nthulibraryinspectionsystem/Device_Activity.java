@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,19 +86,27 @@ public class Device_Activity extends AppCompatActivity {
 
         mode = getIntent().getExtras().getInt(ViewContract.MODE);
         floor = getIntent().getExtras().getInt(ViewContract.FLOOR);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tableLayout.removeAllViews();
         if(mode == ViewContract.INSPECTION){
             //change as history to get current state
             //must do it later
-            MachineInfoInspection machineInfoInspection = new MachineInfoInspection();
-            int branch = 0;
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String CurrentDate = dateFormat.format(Calendar.getInstance().getTime());
+            String paraFloor;
             if(floor > 6){
-                branch = WebServerContract.MACHINE_BRANCH_RS;
                 floor = floor - 6;
+                paraFloor = 'C' + String.valueOf(floor);
+            }else{
+                paraFloor = 'F' + String.valueOf(floor);
             }
-            else branch = WebServerContract.MACHINE_BRANCH_ZT;
+            MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
+            machineInfoHistory.execute(CurrentDate, paraFloor);
 
-            machineInfoInspection.execute(Integer.toString(branch), Integer.toString(floor));
         }else if(mode == ViewContract.HISTORY){
             /*
                 change you code here for 語言學習區 and 學習共享區 using ViewContract.FLOOR_2_學習共享區 and ViewContract.FLOOR_3_語言學習區
@@ -212,6 +221,8 @@ public class Device_Activity extends AppCompatActivity {
                             PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask(tableButton);
                             postTodayMachineInfoAsyncTask.execute(machines_list.get(finalRow *3 + finalCol).getMachine_id(),
                                     String.valueOf(accountHelper.getForeignKey()));
+                            Vibrator vibrator = (Vibrator) v.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                            vibrator.vibrate(250);
                             return true;
                         }
                     });
@@ -2616,6 +2627,8 @@ public class Device_Activity extends AppCompatActivity {
                     populateTableButton(listMachineData, ViewContract.HISTORY_STATE);
                 else if(mode == ViewContract.STATE)
                     populateTableButton(listMachineData, ViewContract.STATE);
+                else if(mode == ViewContract.INSPECTION)
+                    populateTableButton(listMachineData, ViewContract.INSPECTION);
 
             }catch(JSONException e){e.printStackTrace();}
         }

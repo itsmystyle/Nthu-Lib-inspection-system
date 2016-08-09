@@ -51,6 +51,7 @@ public class Form_Activity extends AppCompatActivity {
 
     TextView machine_number_textView;
     TextView place_textView;
+    TextView state_textView;
     TextView dialog_problem_machine_number;
     TextView dialog_problem_machine_place;
     TextView dialog_solve_machine_number;
@@ -69,8 +70,10 @@ public class Form_Activity extends AppCompatActivity {
     EditText daily_problem_solve_input;
     Spinner spinner;
     Spinner problem_spinner;
+    Spinner solution_spinner;
     ArrayAdapter<CharSequence> adapter;
     ArrayAdapter<CharSequence> problemAdapter;
+    ArrayAdapter<CharSequence> solutionAdapter;
 
     String CurrentDate;
     String Past1stDate;
@@ -81,6 +84,8 @@ public class Form_Activity extends AppCompatActivity {
     String Past6thDate;
     String Past7thDate;
     String MachinePlace;
+    String problem;
+    String solution;
 
     int state;
 
@@ -94,6 +99,7 @@ public class Form_Activity extends AppCompatActivity {
 
         machine_number_textView = (TextView) findViewById(R.id.form_machine_id);
         place_textView = (TextView) findViewById(R.id.form_place);
+        state_textView = (TextView) findViewById(R.id.form_state);
         past1stday_button = (Button) findViewById(R.id.form_past1stday_button);
         past2ndday_button = (Button) findViewById(R.id.form_past2ndday_button);
         past3rdday_button = (Button) findViewById(R.id.form_past3rdhday_button);
@@ -175,6 +181,10 @@ public class Form_Activity extends AppCompatActivity {
                         dialog_problem_machine_number.setText(dialog_problem_machine_number.getText() + getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER));
                         dialog_problem_machine_place.setText(dialog_problem_machine_place.getText() + MachinePlace);
 
+                        if(problem != null){
+                            daily_problem_input.setText(problem);
+                        }
+
                         problem_dialog.show();
 
                         break;
@@ -196,6 +206,11 @@ public class Form_Activity extends AppCompatActivity {
                         dialog_solve_machine_number = (TextView) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_machine_number);
                         dialog_solve_machine_place = (TextView) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_place);
 
+                        solution_spinner = (Spinner) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_spinner_solution);
+                        solutionAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.solution_list, android.R.layout.simple_spinner_item);
+                        solutionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        solution_spinner.setAdapter(solutionAdapter);
+
                         problem_spinner = (Spinner) problem_solve_dialog.findViewById(R.id.daily_problem_solve_dialog_spinner);
                         problemAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.problem_list, android.R.layout.simple_spinner_item);
                         problemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -205,14 +220,60 @@ public class Form_Activity extends AppCompatActivity {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 switch(parent.getItemAtPosition(position).toString()){
-                                    case MachineContract.MACHINE_PROBLEM_其他:
-                                        daily_problem_input.setText("");
+                                    case  MachineContract.MACHINE_PROBLEM_電腦主機螢幕訊號線鬆動:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_電腦主機螢幕訊號線鬆動);
                                         break;
-                                    case  MachineContract.MACHINE_PROBLEM_VGA線被拔掉:
-                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_VGA線被拔掉);
+                                    case  MachineContract.MACHINE_PROBLEM_Kiosk主機當機:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_Kiosk主機當機);
+                                        break;
+                                    case  MachineContract.MACHINE_PROBLEM_螢幕畫面解析度錯亂:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_螢幕畫面解析度錯亂);
+                                        break;
+                                    case  MachineContract.MACHINE_PROBLEM_電腦主機不正常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_電腦主機不正常);
+                                        break;
+                                    case  MachineContract.MACHINE_PROBLEM_電腦主機電源線被拔掉:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_電腦主機電源線被拔掉);
                                         break;
                                     default:
-                                        daily_problem_input.setText("");
+                                        if(problem != null){
+                                            daily_problem_input.setText(problem);
+                                        }else
+                                            daily_problem_input.setText("");
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
+                        solution_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                switch(parent.getItemAtPosition(position).toString()){
+                                    case  MachineContract.MACHINE_SOLUTION_按紅色鈕重新開機:
+                                        daily_problem_solve_input.setText(MachineContract.MACHINE_SOLUTION_按紅色鈕重新開機);
+                                        break;
+                                    case  MachineContract.MACHINE_SOLUTION_螢幕訊號線重新安裝:
+                                        daily_problem_solve_input.setText(MachineContract.MACHINE_SOLUTION_螢幕訊號線重新安裝);
+                                        break;
+                                    case  MachineContract.MACHINE_SOLUTION_重新開機:
+                                        daily_problem_solve_input.setText(MachineContract.MACHINE_SOLUTION_重新開機);
+                                        break;
+                                    case  MachineContract.MACHINE_SOLUTION_電源線重新安裝:
+                                        daily_problem_solve_input.setText(MachineContract.MACHINE_SOLUTION_電源線重新安裝);
+                                        break;
+                                    case  MachineContract.MACHINE_SOLUTION_電腦主機重新調整解析度:
+                                        daily_problem_solve_input.setText(MachineContract.MACHINE_SOLUTION_電腦主機重新調整解析度);
+                                        break;
+                                    default:
+                                        if(solution != null){
+                                            daily_problem_solve_input.setText(solution);
+                                        }else
+                                            daily_problem_solve_input.setText("");
                                         break;
                                 }
                             }
@@ -298,6 +359,7 @@ public class Form_Activity extends AppCompatActivity {
 
                 URL url = new URL(MACHINE_INFO_URL);
                 String urlParameters = WebServerContract.MACHINE_NUMBER + "=" + URLEncoder.encode(params[0], "utf-8") + "&" +
+                        WebServerContract.MACHINE_DATE + "=" + CurrentDate + "&" +
                         WebServerContract.MACHINE_PAST_1ST_DATE + "=" + Past1stDate + "&" +
                         WebServerContract.MACHINE_PAST_2ND_DATE + "=" + Past2ndDate + "&" +
                         WebServerContract.MACHINE_PAST_3RD_DATE + "=" + Past3rdDate + "&" +
@@ -398,6 +460,35 @@ public class Form_Activity extends AppCompatActivity {
                     int tmpState;
                     place_textView.setText(place_textView.getText() + machine_info.getString(WebServerContract.MACHINE_PLACE));
                     MachinePlace =  machine_info.getString(WebServerContract.MACHINE_PLACE);
+                    switch (machine_info.getInt(WebServerContract.DAILIES_STATE)){
+                        case MachineContract.MACHINE_STATE_使用中:
+                            state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_使用中);
+                            spinner.setSelection(4);
+                            break;
+                        case MachineContract.MACHINE_STATE_良好:
+                            state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_良好);
+                            spinner.setSelection(0);
+                            break;
+                        case MachineContract.MACHINE_STATE_問題排除:
+                            state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_問題排除);
+                            problem = machine_info.getString(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL);
+                            solution = machine_info.getString(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL);
+                            spinner.setSelection(1);
+                            break;
+                        case MachineContract.MACHINE_STATE_通知人員:
+                            state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_通知人員);
+                            problem = machine_info.getString(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL);
+                            spinner.setSelection(2);
+                            break;
+                        case MachineContract.MACHINE_STATE_其他:
+                            state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_其他);
+                            spinner.setSelection(3);
+                            break;
+                        default:
+                            state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_未紀錄);
+                            break;
+                    }
+
                     tmpState = machine_info.getInt(WebServerContract.MACHINE_PAST_1ST_DATE);
                     switch (tmpState){
                         case MachineContract.MACHINE_STATE_未紀錄: past1stday_button.setText(R.string.past1stDate_state_0);
