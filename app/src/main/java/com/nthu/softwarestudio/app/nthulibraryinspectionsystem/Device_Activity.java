@@ -92,6 +92,15 @@ public class Device_Activity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         tableLayout.removeAllViews();
+        tableLayout_2.removeAllViews();
+        tableLayout_3.removeAllViews();
+        tableLayout_4.removeAllViews();
+        tableLayout_5.removeAllViews();
+        tableLayout_6.removeAllViews();
+        tableLayout_rs1.removeAllViews();
+        tableLayout_rs2.removeAllViews();
+        tableLayout_language.removeAllViews();
+        tableLayout_sharing.removeAllViews();
         if(mode == ViewContract.INSPECTION){
             //change as history to get current state
             //must do it later
