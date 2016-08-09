@@ -98,7 +98,11 @@ public class Device_Activity extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String CurrentDate = dateFormat.format(Calendar.getInstance().getTime());
             String paraFloor;
-            if(floor > 6){
+            if(floor == ViewContract.FLOOR_2_學習共享區){
+                paraFloor = "C3";
+            }else if(floor == ViewContract.FLOOR_3_語言學習區){
+                paraFloor = "C4";
+            }else if(floor > 6){
                 floor = floor - 6;
                 paraFloor = 'C' + String.valueOf(floor);
             }else{
@@ -123,7 +127,11 @@ public class Device_Activity extends AppCompatActivity {
             */
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
             String paraFloor;
-            if(floor > 6){
+            if(floor == ViewContract.FLOOR_2_學習共享區){
+                paraFloor = "C3";
+            }else if(floor == ViewContract.FLOOR_3_語言學習區){
+                paraFloor = "C4";
+            }else if(floor > 6){
                 floor = floor - 6;
                 paraFloor = 'C' + String.valueOf(floor);
             }else{
@@ -137,7 +145,11 @@ public class Device_Activity extends AppCompatActivity {
             //remember to change here too!
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
             String paraFloor;
-            if(floor > 6){
+            if(floor == ViewContract.FLOOR_2_學習共享區){
+                paraFloor = "C3";
+            }else if(floor == ViewContract.FLOOR_3_語言學習區){
+                paraFloor = "C4";
+            }else if(floor > 6){
                 floor = floor - 6;
                 paraFloor = 'C' + String.valueOf(floor);
             }else{
