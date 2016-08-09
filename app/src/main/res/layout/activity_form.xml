@@ -54,6 +54,24 @@
                 android:layout_marginLeft="20dp" />
         </FrameLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:background="@drawable/rounded_form_mini_form"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="狀態 : "
+                android:id="@+id/form_state"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp" />
+        </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,10 +115,11 @@
                         android:text="@string/past7thDate_state_0"
                         android:id="@+id/form_past7thday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -108,10 +127,11 @@
                         android:text="@string/past6thDate_state_0"
                         android:id="@+id/form_past6thday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginLeft="2dp" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -119,10 +139,11 @@
                         android:text="@string/past5thDate_state_0"
                         android:id="@+id/form_past5thday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -130,10 +151,11 @@
                         android:text="@string/past4thDate_state_0"
                         android:id="@+id/form_past4thday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginLeft="2dp" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -141,10 +163,11 @@
                         android:text="@string/past3rdDate_state_0"
                         android:id="@+id/form_past3rdhday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -152,10 +175,11 @@
                         android:text="@string/past2ndDate_state_0"
                         android:id="@+id/form_past2ndday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginLeft="2dp" />
 
                     <Button
                         android:layout_width="match_parent"
@@ -163,10 +187,11 @@
                         android:text="@string/past1stDate_state_0"
                         android:id="@+id/form_past1stday_button"
                         android:layout_weight="1"
-                        android:layout_marginRight="2dp"
                         android:textColor="@android:color/background_dark"
                         android:alpha="0.9"
-                        android:background="@drawable/rounded_button_menu" />
+                        android:background="@drawable/rounded_button_menu"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
@@ -230,6 +255,7 @@
                 android:textColor="@color/white"
                 android:alpha="0.9" />
         </FrameLayout>
+
     </LinearLayout>
 
     <FrameLayout

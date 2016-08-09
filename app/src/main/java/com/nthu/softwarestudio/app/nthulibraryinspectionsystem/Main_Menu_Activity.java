@@ -57,7 +57,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 uc2.connect();
                 uc2.getInputStream();
                 if(uc2!=null) uc2.disconnect();
-                Log.v("Look url:", "Built URI " + b2.toString());
+                //Log.v("Look url:", "Built URI " + b2.toString());
                 publishProgress(25);
                 try{
                     Thread.sleep(500);
