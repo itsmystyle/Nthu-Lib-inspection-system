@@ -102,8 +102,6 @@ public class Device_Activity extends AppCompatActivity {
         tableLayout_language.removeAllViews();
         tableLayout_sharing.removeAllViews();
         if(mode == ViewContract.INSPECTION){
-            //change as history to get current state
-            //must do it later
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String CurrentDate = dateFormat.format(Calendar.getInstance().getTime());
             String paraFloor;
@@ -112,28 +110,18 @@ public class Device_Activity extends AppCompatActivity {
             }else if(floor == ViewContract.FLOOR_3_語言學習區){
                 paraFloor = "C4";
             }else if(floor > 6){
-                floor = floor - 6;
-                paraFloor = 'C' + String.valueOf(floor);
+                int tmpFloor = floor - 6;
+                paraFloor = 'C' + String.valueOf(tmpFloor);
             }else{
                 paraFloor = 'F' + String.valueOf(floor);
             }
+
+            Log.e(LOG_TAG, paraFloor);
+
             MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
             machineInfoHistory.execute(CurrentDate, paraFloor);
 
         }else if(mode == ViewContract.HISTORY){
-            /*
-                change you code here for 語言學習區 and 學習共享區 using ViewContract.FLOOR_2_學習共享區 and ViewContract.FLOOR_3_語言學習區
-                example,
-                if(floor == View.Contract.FLOOR_2_學習共享區){
-                    do something
-                }else if(floor == ViewContract.FLOOR_3_語言學習區){
-                    do something
-                }else if(floor > 6){
-                    do something
-                }else{
-                    do something
-                }
-            */
             String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
             String paraFloor;
             if(floor == ViewContract.FLOOR_2_學習共享區){
@@ -141,8 +129,8 @@ public class Device_Activity extends AppCompatActivity {
             }else if(floor == ViewContract.FLOOR_3_語言學習區){
                 paraFloor = "C4";
             }else if(floor > 6){
-                floor = floor - 6;
-                paraFloor = 'C' + String.valueOf(floor);
+                int tmpFloor = floor - 6;
+                paraFloor = 'C' + String.valueOf(tmpFloor);
             }else{
                 paraFloor = 'F' + String.valueOf(floor);
             }
@@ -150,25 +138,36 @@ public class Device_Activity extends AppCompatActivity {
             machineInfoHistory.execute(paraDate, paraFloor);
 
         }else if(mode == ViewContract.HISTORY_STATE){
-            //change you code here for 語言學習區 and 學習共享區 using ViewContract.FLOOR_2_學習共享區 and ViewContract.FLOOR_3_語言學習區
-            //remember to change here too!
-            String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
-            String paraFloor;
-            if(floor == ViewContract.FLOOR_2_學習共享區){
-                paraFloor = "C3";
-            }else if(floor == ViewContract.FLOOR_3_語言學習區){
-                paraFloor = "C4";
-            }else if(floor > 6){
-                floor = floor - 6;
-                paraFloor = 'C' + String.valueOf(floor);
-            }else{
-                paraFloor = 'F' + String.valueOf(floor);
-            }
-            Integer tmp = getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE);
-            String paraState = tmp.toString();
 
-            MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
-            machineInfoHistory.execute(paraDate, paraFloor , paraState);
+            if(getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE) == MachineContract.MACHINE_STATE_問題排除 || getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE) == MachineContract.MACHINE_STATE_通知人員){
+                String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
+
+                Integer tmp = getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE);
+                String paraState = tmp.toString();
+
+                MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
+                machineInfoHistory.execute(paraDate, paraState);
+
+            }else{
+                String paraDate = getIntent().getExtras().getString(WebServerContract.DAILIES_DATE);
+                String paraFloor;
+                if(floor == ViewContract.FLOOR_2_學習共享區){
+                    paraFloor = "C3";
+                }else if(floor == ViewContract.FLOOR_3_語言學習區){
+                    paraFloor = "C4";
+                }else if(floor > 6){
+                    int tmpFloor = floor - 6;
+                    paraFloor = 'C' + String.valueOf(tmpFloor);
+                }else{
+                    paraFloor = 'F' + String.valueOf(floor);
+                }
+                Integer tmp = getIntent().getExtras().getInt(WebServerContract.DAILIES_STATE);
+                String paraState = tmp.toString();
+
+                MachineInfoHistory machineInfoHistory = new MachineInfoHistory();
+                machineInfoHistory.execute(paraDate, paraFloor , paraState);
+            }
+
         }else if(mode == ViewContract.STATE){
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String CurrentDate = dateFormat.format(Calendar.getInstance().getTime());
@@ -2547,11 +2546,17 @@ public class Device_Activity extends AppCompatActivity {
                 Integer tmp = params.length;
 
                 if(params.length == 2){
-                    builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(DATE, params[0])
-                            .appendQueryParameter(FLOOR, params[1])
-                            .build();
-
+                    if(params[1].length() > 1){
+                        builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                                .appendQueryParameter(DATE, params[0])
+                                .appendQueryParameter(FLOOR, params[1])
+                                .build();
+                    }else{
+                        builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                                .appendQueryParameter(DATE, params[0])
+                                .appendQueryParameter(STATE, params[1])
+                                .build();
+                    }
                 }else if(params.length == 1){
                     builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                             .appendQueryParameter(DATE, params[0])

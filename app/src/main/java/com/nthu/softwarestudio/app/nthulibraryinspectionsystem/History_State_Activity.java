@@ -65,7 +65,7 @@ public class History_State_Activity extends AppCompatActivity {
                 year_x = calendar.get(Calendar.YEAR);
                 month_x = calendar.get(Calendar.MONTH);
                 day_x = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), R.style.AppTheme_Dialog, dpickerListener, year_x, month_x, day_x);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), R.style.AppTheme_Dialog, dpickerListener_nonstate, year_x, month_x, day_x);
                 datePickerDialog.getDatePicker().setSpinnersShown(true);
                 Dialog showDialog = (Dialog) datePickerDialog;
                 showDialog.show();
@@ -80,7 +80,7 @@ public class History_State_Activity extends AppCompatActivity {
                 year_x = calendar.get(Calendar.YEAR);
                 month_x = calendar.get(Calendar.MONTH);
                 day_x = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), R.style.AppTheme_Dialog, dpickerListener, year_x, month_x, day_x);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), R.style.AppTheme_Dialog, dpickerListener_nonstate, year_x, month_x, day_x);
                 datePickerDialog.getDatePicker().setSpinnersShown(true);
                 Dialog showDialog = (Dialog) datePickerDialog;
                 showDialog.show();
@@ -151,6 +151,32 @@ public class History_State_Activity extends AppCompatActivity {
 
                     date = year_x +"-"+ MON + "-"+DA;
                     Intent intent = new Intent(getApplicationContext(), Floor_Activity.class);
+                    intent.putExtra(ViewContract.MODE, ViewContract.HISTORY_STATE);
+                    intent.putExtra(WebServerContract.DAILIES_DATE, date);
+                    intent.putExtra(WebServerContract.DAILIES_STATE, state);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }
+            };
+
+    private DatePickerDialog.OnDateSetListener dpickerListener_nonstate =
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    String date;
+                    year_x = year;
+                    month_x = monthOfYear + 1;
+                    day_x = dayOfMonth;
+                    String MON = String.valueOf(month_x);
+
+                    if(month_x < 10) MON = "0"+MON;
+
+                    String DA = String.valueOf(day_x);
+
+                    if(day_x < 10) DA = "0"+DA;
+
+                    date = year_x +"-"+ MON + "-"+DA;
+                    Intent intent = new Intent(getApplicationContext(), Device_Activity.class);
                     intent.putExtra(ViewContract.MODE, ViewContract.HISTORY_STATE);
                     intent.putExtra(WebServerContract.DAILIES_DATE, date);
                     intent.putExtra(WebServerContract.DAILIES_STATE, state);
