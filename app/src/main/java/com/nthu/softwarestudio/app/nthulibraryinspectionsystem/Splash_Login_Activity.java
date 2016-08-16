@@ -26,9 +26,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.CookieManager;
+import java.net.CookieStore;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Splash_Login_Activity extends AppCompatActivity {
     private final String LOG_TAG = getClass().getSimpleName();
@@ -66,6 +75,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
     class Authorization extends AsyncTask<String, Void, String>{
         private final String LOG_TAG = this.getClass().getSimpleName();
         private final String USER_AUTHORIZATION_URL = WebServerContract.BASE_URL + WebServerContract.USER_AUTHORIZATION_URL;
+        private final String TestingServerURL = "https://lib-test-peter3846.c9users.io/users/sign_in";
 
         HttpURLConnection httpURLConnection;
         BufferedReader bufferedReader;
@@ -74,9 +84,11 @@ public class Splash_Login_Activity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try{
+                //URL url = new URL(TestingServerURL);
                 URL url = new URL(USER_AUTHORIZATION_URL);
                 String urlParameters = WebServerContract.USER_AUTHORIZATION_USERID + "=" + params[0] + "&" +
                                         WebServerContract.USER_AUTHORIZATION_USERPASSWORD + "=" + params[1];
+
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -87,7 +99,11 @@ public class Splash_Login_Activity extends AppCompatActivity {
                     return null;
                 }
 
+                //String cookieString = "";
+                //String csrf_token = "";
                 httpURLConnection = (HttpURLConnection) url.openConnection();
+                //httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setDoInput(true);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
 
@@ -96,6 +112,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 dataOutputStream.flush();
                 dataOutputStream.close();
 
+                //getting csrf token
                 InputStream inputStream = httpURLConnection.getInputStream();
                 StringBuffer stringBuffer = new StringBuffer();
                 if(inputStream == null){
@@ -115,6 +132,89 @@ public class Splash_Login_Activity extends AppCompatActivity {
                     Log.e(LOG_TAG, "String Buffer Error");
                     return null;
                 }
+
+                /*char[] charSequence = stringBuffer.toString().toCharArray();
+                StringBuffer stringBufferTmp = new StringBuffer();
+                for(int i=3976; i < 4064; i++)
+                    stringBufferTmp.append(charSequence[i]);
+
+                Log.e(LOG_TAG, stringBufferTmp.toString());
+                csrf_token = stringBufferTmp.toString();
+
+                //get cookie
+                for(int i=0 ;i<httpURLConnection.getHeaderFields().size(); i++){
+                    Log.e(LOG_TAG, httpURLConnection.getHeaderFieldKey(i) + " =" + httpURLConnection.getHeaderField(i));
+                }
+
+                CookieManager cookieManager = new CookieManager();
+                Map<String, List<String>> headers = httpURLConnection.getHeaderFields();
+                List<String> cookiesHeader = headers.get("Set-Cookie");
+
+                if(cookiesHeader != null){
+                    for(String cookie: cookiesHeader){
+                        cookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
+                    }
+                }
+
+                List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
+                Iterator<HttpCookie> cookieIterator = cookies.iterator();
+                while(cookieIterator.hasNext()){
+                    HttpCookie cookie = cookieIterator.next();
+                    cookieString += cookie.getName() + "=" + cookie.getValue() + ";";
+                }
+                Log.e(LOG_TAG, cookieString);
+                httpURLConnection.disconnect();
+
+                url = new URL(TestingServerURL);
+                String urlParameters = URLEncoder.encode("utf8='✓'&authenticity_token","utf-8") + "='" + URLEncoder.encode(csrf_token, "utf-8") + "'&" +
+                        URLEncoder.encode("user[account]", "utf-8") + "='" + URLEncoder.encode(params[0], "utf-8") + "'&" +
+                        URLEncoder.encode("user[password]", "utf-8") + "='" + URLEncoder.encode(params[1], "utf-8") + "'&" +
+                        URLEncoder.encode("user[remember_me]='0'&commit='登入'", "utf-8");
+
+                String urlParametersTmp = "authenticity_token=" + csrf_token + "&user[account]=" + params[0] + "&user[password]=" + params[1] + "&user[remember_me]=0";
+
+                Log.e(LOG_TAG, urlParameters);
+
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setRequestProperty("Content-Type",
+                        "application/x-www-form-urlencoded");
+                httpURLConnection.setRequestProperty("Content-Length", "" +
+                        Integer.toString(urlParameters.getBytes().length));
+                httpURLConnection.setRequestProperty("Cookie", cookieString);
+                httpURLConnection.setRequestProperty("Content-Language", "en-US");
+                httpURLConnection.setUseCaches (false);
+
+
+                DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                dataOutputStream.writeBytes(urlParameters);
+                dataOutputStream.flush();
+                dataOutputStream.close();
+                */
+
+                /*inputStream = httpURLConnection.getInputStream();
+                stringBuffer = new StringBuffer();
+                if(inputStream == null){
+                    Log.e(LOG_TAG, "InputStream Error");
+                    return null;
+                }
+
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+                while((line = bufferedReader.readLine()) != null){
+                    stringBuffer.append(line + "\n");
+                }
+                inputStream.close();
+
+                if(stringBuffer.length() == 0){
+                    Log.e(LOG_TAG, "String Buffer Error");
+                    return null;
+                }
+
+                Log.e(LOG_TAG, stringBuffer.toString());*/
+                //Log.e(LOG_TAG, httpURLConnection.getErrorStream().toString());
+
+                //return String.valueOf(httpURLConnection.getResponseCode());
 
                 return stringBuffer.toString();
 
@@ -142,6 +242,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            //Log.e(LOG_TAG, s);
             try{
                 if(s == null || s.length() == 0 || !networkService){
                     Log.e(LOG_TAG, "Unable to get json");
@@ -200,6 +301,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
             }
+
 
             super.onPostExecute(s);
         }
