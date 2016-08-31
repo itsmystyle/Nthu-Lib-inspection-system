@@ -75,7 +75,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
     class Authorization extends AsyncTask<String, Void, String>{
         private final String LOG_TAG = this.getClass().getSimpleName();
         private final String USER_AUTHORIZATION_URL = WebServerContract.BASE_URL + WebServerContract.USER_AUTHORIZATION_URL;
-        private final String TestingServerURL = "https://lib-test-peter3846.c9users.io/users/sign_in";
+        private final String USER_LOGIN_URL = WebServerContract.ROR_BASE_URL + "/sign_in";
 
         HttpURLConnection httpURLConnection;
         BufferedReader bufferedReader;
@@ -84,11 +84,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try{
-                //URL url = new URL(TestingServerURL);
-                URL url = new URL(USER_AUTHORIZATION_URL);
-                String urlParameters = WebServerContract.USER_AUTHORIZATION_USERID + "=" + params[0] + "&" +
-                                        WebServerContract.USER_AUTHORIZATION_USERPASSWORD + "=" + params[1];
-
+                URL url = new URL(USER_LOGIN_URL);
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -99,18 +95,11 @@ public class Splash_Login_Activity extends AppCompatActivity {
                     return null;
                 }
 
-                //String cookieString = "";
-                //String csrf_token = "";
+                String cookieString = "";
+                String csrf_token = "";
                 httpURLConnection = (HttpURLConnection) url.openConnection();
-                //httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.setDoInput(true);
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-
-                DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-                dataOutputStream.writeBytes(urlParameters);
-                dataOutputStream.flush();
-                dataOutputStream.close();
 
                 //getting csrf token
                 InputStream inputStream = httpURLConnection.getInputStream();
@@ -133,7 +122,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
                     return null;
                 }
 
-                /*char[] charSequence = stringBuffer.toString().toCharArray();
+                char[] charSequence = stringBuffer.toString().toCharArray();
                 StringBuffer stringBufferTmp = new StringBuffer();
                 for(int i=3976; i < 4064; i++)
                     stringBufferTmp.append(charSequence[i]);
@@ -165,15 +154,13 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 Log.e(LOG_TAG, cookieString);
                 httpURLConnection.disconnect();
 
-                url = new URL(TestingServerURL);
-                String urlParameters = URLEncoder.encode("utf8='✓'&authenticity_token","utf-8") + "='" + URLEncoder.encode(csrf_token, "utf-8") + "'&" +
-                        URLEncoder.encode("user[account]", "utf-8") + "='" + URLEncoder.encode(params[0], "utf-8") + "'&" +
-                        URLEncoder.encode("user[password]", "utf-8") + "='" + URLEncoder.encode(params[1], "utf-8") + "'&" +
-                        URLEncoder.encode("user[remember_me]='0'&commit='登入'", "utf-8");
-
-                String urlParametersTmp = "authenticity_token=" + csrf_token + "&user[account]=" + params[0] + "&user[password]=" + params[1] + "&user[remember_me]=0";
-
-                Log.e(LOG_TAG, urlParameters);
+                url = new URL(USER_LOGIN_URL);
+                String urlParameters = URLEncoder.encode("utf8", "utf-8") + "=" + URLEncoder.encode("✓", "utf-8") + "&" +
+                                        URLEncoder.encode("authenticity_token", "utf-8") + "=" + URLEncoder.encode(csrf_token, "utf-8") + "&" +
+                                        URLEncoder.encode("user[account]", "utf-8") + "=" + URLEncoder.encode(params[0], "utf-8") + "&" +
+                                        URLEncoder.encode("user[password]", "utf-8") + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
+                                        URLEncoder.encode("user[remember_me]", "utf-8") + "=" + URLEncoder.encode("0", "utf-8") + "&" +
+                                        URLEncoder.encode("commit", "utf-8") + "=" + URLEncoder.encode("登入", "utf-8");
 
                 httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -184,40 +171,55 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 httpURLConnection.setRequestProperty("Cookie", cookieString);
                 httpURLConnection.setRequestProperty("Content-Language", "en-US");
                 httpURLConnection.setUseCaches (false);
+                httpURLConnection.setInstanceFollowRedirects(false);
 
 
                 DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
                 dataOutputStream.writeBytes(urlParameters);
                 dataOutputStream.flush();
                 dataOutputStream.close();
-                */
 
-                /*inputStream = httpURLConnection.getInputStream();
-                stringBuffer = new StringBuffer();
-                if(inputStream == null){
-                    Log.e(LOG_TAG, "InputStream Error");
+                if(httpURLConnection.getResponseCode() == 200){
+                    return String.valueOf(httpURLConnection.getResponseCode());
+                }else if(httpURLConnection.getResponseCode() == 302){
+                    url = new URL(USER_AUTHORIZATION_URL);
+                    urlParameters = WebServerContract.USER_AUTHORIZATION_USERID + "=" + params[0];
+
+                    httpURLConnection.disconnect();
+                    httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoInput(true);
+                    httpURLConnection.setDoOutput(true);
+
+                    dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                    dataOutputStream.writeBytes(urlParameters);
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+
+                    inputStream = httpURLConnection.getInputStream();
+                    stringBuffer = new StringBuffer();
+                    if(inputStream == null){
+                        Log.e(LOG_TAG, "InputStream Error");
+                        return null;
+                    }
+
+                    bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+                    while((line = bufferedReader.readLine()) != null){
+                        stringBuffer.append(line + "\n");
+                    }
+                    inputStream.close();
+
+                    if(stringBuffer.length() == 0){
+                        Log.e(LOG_TAG, "String Buffer Error");
+                        return null;
+                    }
+
+                    return stringBuffer.toString();
+
+                }else{
                     return null;
                 }
-
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-                while((line = bufferedReader.readLine()) != null){
-                    stringBuffer.append(line + "\n");
-                }
-                inputStream.close();
-
-                if(stringBuffer.length() == 0){
-                    Log.e(LOG_TAG, "String Buffer Error");
-                    return null;
-                }
-
-                Log.e(LOG_TAG, stringBuffer.toString());*/
-                //Log.e(LOG_TAG, httpURLConnection.getErrorStream().toString());
-
-                //return String.valueOf(httpURLConnection.getResponseCode());
-
-                return stringBuffer.toString();
-
             } catch (MalformedURLException e) {
                 Log.e(LOG_TAG, e.getMessage() + "Error MalformedURLException");
                 e.printStackTrace();
@@ -242,7 +244,6 @@ public class Splash_Login_Activity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            //Log.e(LOG_TAG, s);
             try{
                 if(s == null || s.length() == 0 || !networkService){
                     Log.e(LOG_TAG, "Unable to get json");
@@ -253,6 +254,12 @@ public class Splash_Login_Activity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
                                 Toast.LENGTH_SHORT).show();
                     }
+                    return;
+                }
+
+                if(s.equals("200")){
+                    Toast.makeText(getApplicationContext(),"Wrong Username or Password. Please try again."
+                            , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -277,14 +284,13 @@ public class Splash_Login_Activity extends AppCompatActivity {
                         Integer user_id = server_data.getInt(WebServerContract.USER_AUTHORIZATION_USER_ID_AUTOINCREAMENT);
                         String user_name = userName.getText().toString();
                         String user_real_name = server_data.getString(WebServerContract.USER_AUTHORIZATION_USER_NAME);
-                        String user_access_token = server_data.getString(WebServerContract.USER_AUTHORIZATION_USER_ACCESS_TOKEN);
 
                         AccountHelper accountHelper = new AccountHelper(getApplicationContext());
                         accountHelper.deleteData();
 
                         int remeberMe =  rememberMe.isChecked()?1:0;
 
-                        if(accountHelper.insertData(user_name, user_access_token, user_real_name, user_id, remeberMe)){
+                        if(accountHelper.insertData(user_name, user_name, user_real_name, user_id, remeberMe)){
                             Log.v(LOG_TAG, "inserted to database");
                         }else{
                             Log.e(LOG_TAG, "failed to insert to database");
@@ -301,7 +307,6 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
             }
-
 
             super.onPostExecute(s);
         }

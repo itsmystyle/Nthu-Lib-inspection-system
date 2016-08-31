@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,12 +67,15 @@ public class Form_Activity extends AppCompatActivity {
     Button submit_button;
     Button daily_dialog_submit_button;
     Button daily_dialog_cancel_button;
+    Button daily_dialog_photo_button;
     EditText daily_problem_input;
     EditText daily_problem_solve_input;
     Spinner spinner;
+    Spinner unsolvable_problem_spinner;
     Spinner problem_spinner;
     Spinner solution_spinner;
     ArrayAdapter<CharSequence> adapter;
+    ArrayAdapter<CharSequence> unsolvableProblemAdapter;
     ArrayAdapter<CharSequence> problemAdapter;
     ArrayAdapter<CharSequence> solutionAdapter;
 
@@ -154,11 +158,144 @@ public class Form_Activity extends AppCompatActivity {
                         window_problem.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                                 WindowManager.LayoutParams.WRAP_CONTENT);
 
+                        //for future photo features use.
+                        FrameLayout photo_hidden = (FrameLayout) problem_dialog.findViewById(R.id.photo_hidden);
+                        photo_hidden.setVisibility(View.GONE);
+
                         daily_problem_input = (EditText) problem_dialog.findViewById(R.id.daily_problem_dialog_problem_input);
                         daily_dialog_submit_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_submit_button);
                         daily_dialog_cancel_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_cancel_button);
                         dialog_problem_machine_number = (TextView) problem_dialog.findViewById(R.id.daily_problem_dialog_machine_number);
                         dialog_problem_machine_place = (TextView) problem_dialog.findViewById(R.id.daily_problem_dialog_place);
+                        daily_dialog_photo_button = (Button) problem_dialog.findViewById(R.id.daily_problem_dialog_photo_button);
+
+                        unsolvable_problem_spinner = (Spinner) problem_dialog.findViewById(R.id.daily_problem_dialog_spinner);
+                        unsolvableProblemAdapter = ArrayAdapter.createFromResource(v.getContext(), R.array.unsolvable_problem_list, android.R.layout.simple_spinner_item);
+                        unsolvableProblemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        unsolvable_problem_spinner.setAdapter(unsolvableProblemAdapter);
+
+                        unsolvable_problem_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                switch(parent.getItemAtPosition(position).toString()){
+                                    case MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk主機當機無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk主機當機無法正常使用);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk無法開機:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk無法開機);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk網路異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk網路異常);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk螢幕畫面不正常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_Kiosk_Kiosk螢幕畫面不正常);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_主機_電腦主機無法開機:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_主機_電腦主機無法開機);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_主機_電腦主機當機無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_主機_電腦主機當機無法正常使用);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_主機_電腦作業系統異常無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_主機_電腦作業系統異常無法正常使用);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_主機_電腦網路異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_主機_電腦網路異常);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_主機_電腦軟體功能無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_主機_電腦軟體功能無法正常使用);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_螢幕_螢幕沒有畫面:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_螢幕_螢幕沒有畫面);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_螢幕_螢幕無法開機:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_螢幕_螢幕無法開機);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_螢幕_螢幕畫面不正常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_螢幕_螢幕畫面不正常);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_螢幕_螢幕畫面有亮點或亮線:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_螢幕_螢幕畫面有亮點或亮線);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_讀卡機_讀卡機壓克力座破損或缺件:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_讀卡機_讀卡機壓克力座破損或缺件);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_讀卡機_讀卡機壓克力座鬆開或鬆脫:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_讀卡機_讀卡機壓克力座鬆開或鬆脫);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_讀卡機_讀卡機感應異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_讀卡機_讀卡機感應異常);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_周邊掃描機_掃描機無法與主機連線:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊掃描機_掃描機無法與主機連線);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊掃描機_掃描機無法開機:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊掃描機_掃描機無法開機);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊掃描機_掃描異常無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊掃描機_掃描異常無法正常使用);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_周邊擴視機_擴視機無法與主機連線:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊擴視機_擴視機無法與主機連線);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊擴視機_擴視機無法開機:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊擴視機_擴視機無法開機);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊擴視機_擴視機設備異常無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊擴視機_擴視機設備異常無法正常使用);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_周邊鍵盤_鍵盤USB_連線異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊鍵盤_鍵盤USB_連線異常);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊鍵盤_鍵盤某按鍵異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊鍵盤_鍵盤某按鍵異常);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊鍵盤_鍵盤無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊鍵盤_鍵盤無法正常使用);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_周邊滑鼠_滑鼠無法正常使用:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊滑鼠_滑鼠無法正常使用);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊滑鼠_滑鼠USB_連線異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊滑鼠_滑鼠USB_連線異常);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_周邊滑鼠_滑鼠某按鍵異常:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_周邊滑鼠_滑鼠某按鍵異常);
+                                        break;
+
+                                    case MachineContract.MACHINE_PROBLEM_音源孔_鏍絲鬆脫:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_音源孔_鏍絲鬆脫);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_投影機_投影機沒有開啟_無正常運作:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_投影機_投影機沒有開啟_無正常運作);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_椅子_椅子裂損或缺件:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_椅子_椅子裂損或缺件);
+                                        break;
+                                    case MachineContract.MACHINE_PROBLEM_電燈座_桌燈故障:
+                                        daily_problem_input.setText(MachineContract.MACHINE_PROBLEM_電燈座_桌燈故障);
+                                        break;
+                                    default:
+                                        if(problem != null){
+                                            daily_problem_input.setText(problem);
+                                        }else{
+                                            daily_problem_input.setText("");
+                                        }
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
 
                         daily_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -180,10 +317,6 @@ public class Form_Activity extends AppCompatActivity {
 
                         dialog_problem_machine_number.setText(dialog_problem_machine_number.getText() + getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER));
                         dialog_problem_machine_place.setText(dialog_problem_machine_place.getText() + MachinePlace);
-
-                        if(problem != null){
-                            daily_problem_input.setText(problem);
-                        }
 
                         problem_dialog.show();
 

@@ -9,7 +9,9 @@ public class WebServerContract {
      */
     //public static final String BASE_URL = "http://192.168.1.109:8888/NTHU_lib_app";
     //public static final String BASE_URL = "http://192.168.1.105:8888/Nthu_lib_app";
-    public static final String BASE_URL = "http://s103062325.web.2y.idv.tw/NTHU_lib_app";
+    //public static final String BASE_URL = "http://s103062325.web.2y.idv.tw/NTHU_lib_app";
+    public static final String BASE_URL = "http://140.114.73.33:3333/NTHU_lib_app";
+    public static final String ROR_BASE_URL = "http://140.114.73.33:3000/users";
 
     // user authorization
     public static final String USER_AUTHORIZATION_URL = "/User_Authorization/user_authorization.php";
@@ -21,7 +23,6 @@ public class WebServerContract {
     public static final String USER_AUTHORIZATION_USERID = "userid";
     public static final String USER_AUTHORIZATION_USERPASSWORD = "user_pass";
     public static final String USER_AUTHORIZATION_USER_ID_AUTOINCREAMENT = "user-id";
-    public static final String USER_AUTHORIZATION_USER_ACCESS_TOKEN = "access-token";
     public static final String USER_AUTHORIZATION_USER_NAME = "name";
 
 

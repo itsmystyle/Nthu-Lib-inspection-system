@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        settingButton.setVisibility(View.INVISIBLE);
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

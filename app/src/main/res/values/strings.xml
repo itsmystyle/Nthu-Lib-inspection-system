@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Nthu Library Inspection System</string>
+    <string name="app_version">version 1.1.0</string>
     <string name="button_inspection">設備維護檢視</string>
     <string name="button_history">設備檢視紀錄</string>
     <string name="button_statistics">狀態</string>
@@ -83,6 +84,43 @@
         <item>通知人員</item>
         <item>其他</item>
         <item>使用中</item>
+        <item>未紀錄</item>
+    </string-array>
+
+    <string-array name="unsolvable_problem_list">
+        <item>其他</item>
+        <item>Kiosk - Kiosk無法開機</item>
+        <item>Kiosk - Kiosk主機當機無法正常使用</item>
+        <item>Kiosk - Kiosk網路異常</item>
+        <item>Kiosk - Kiosk螢幕畫面不正常</item>
+        <item>讀卡機 - 讀卡機感應異常</item>
+        <item>讀卡機 - 讀卡機壓克力座鬆開或鬆脫</item>
+        <item>讀卡機 - 讀卡機壓克力座破損或缺件</item>
+        <item>主機 - 電腦主機無法開機</item>
+        <item>主機 - 電腦主機當機無法正常使用</item>
+        <item>主機 - 電腦作業系統異常無法正常使用</item>
+        <item>主機 - 電腦網路異常</item>
+        <item>主機 - 電腦軟體功能無法正常使用</item>
+        <item>螢幕 - 螢幕無法開機</item>
+        <item>螢幕 - 螢幕沒有畫面</item>
+        <item>螢幕 - 螢幕畫面有亮點或亮線</item>
+        <item>螢幕 - 螢幕畫面不正常</item>
+        <item>周邊(鍵盤) - 鍵盤無法正常使用</item>
+        <item>周邊(鍵盤) - 鍵盤某按鍵異常</item>
+        <item>周邊(鍵盤) - 鍵盤USB 連線異常</item>
+        <item>周邊(滑鼠) - 滑鼠無法正常使用</item>
+        <item>周邊(滑鼠) - 滑鼠某按鍵異常</item>
+        <item>周邊(滑鼠) - 滑鼠USB 連線異常</item>
+        <item>周邊(掃描機) - 掃描機無法開機</item>
+        <item>周邊(掃描機) - 掃描機無法與主機連線</item>
+        <item>周邊(掃描機) - 掃描異常無法正常使用</item>
+        <item>周邊(擴視機) - 擴視機無法開機</item>
+        <item>周邊(擴視機) - 擴視機無法與主機連線</item>
+        <item>周邊(擴視機) - 擴視機設備異常無法正常使用</item>
+        <item>投影機 - 投影機沒有開啟(無正常運作)</item>
+        <item>音源孔 - 鏍絲鬆脫</item>
+        <item>電燈座 - 桌燈故障</item>
+        <item>椅子 - 椅子裂損或缺件(有危險成份)</item>
     </string-array>
 
     <string-array name="problem_list">

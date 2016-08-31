@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,12 +24,16 @@ import java.net.URL;
 public class Main_Menu_Activity extends AppCompatActivity {
 
     ProgressBar progressBar;
+    TextView version;
     private int progress =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        version = (TextView) findViewById(R.id.Loading_version);
+        version.setText(R.string.app_version);
 
         progressBar = (ProgressBar) findViewById(R.id.loading_data_progressbar);
 
@@ -78,7 +85,6 @@ public class Main_Menu_Activity extends AppCompatActivity {
 
 
                 if (inputStream == null) {
-                    // Nothing to do.
                     return null;
                 }
                 reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -86,9 +92,6 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 String line;
                 while ((line = reader.readLine()) != null) {
 
-                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                    // But it does make debugging a *lot* easier if you print out the completed
-                    // buffer for debugging.
                     buffer.append(line);
                 }
                 inputStream.close();
