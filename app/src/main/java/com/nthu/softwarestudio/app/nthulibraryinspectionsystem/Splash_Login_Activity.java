@@ -162,6 +162,15 @@ public class Splash_Login_Activity extends AppCompatActivity {
                                         URLEncoder.encode("user[remember_me]", "utf-8") + "=" + URLEncoder.encode("0", "utf-8") + "&" +
                                         URLEncoder.encode("commit", "utf-8") + "=" + URLEncoder.encode("登入", "utf-8");
 
+                connectivityManager = (ConnectivityManager) getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                if(networkInfo == null || !networkInfo.isConnected()){
+                    networkService = false;
+                    return null;
+                }
+
                 httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setRequestProperty("Content-Type",
@@ -179,13 +188,25 @@ public class Splash_Login_Activity extends AppCompatActivity {
                 dataOutputStream.flush();
                 dataOutputStream.close();
 
+                Log.e(LOG_TAG, String.valueOf(httpURLConnection.getResponseCode()));
+
                 if(httpURLConnection.getResponseCode() == 200){
                     return String.valueOf(httpURLConnection.getResponseCode());
+
                 }else if(httpURLConnection.getResponseCode() == 302){
                     url = new URL(USER_AUTHORIZATION_URL);
                     urlParameters = WebServerContract.USER_AUTHORIZATION_USERID + "=" + params[0];
-
                     httpURLConnection.disconnect();
+
+                    connectivityManager = (ConnectivityManager) getApplicationContext()
+                            .getSystemService(Context.CONNECTIVITY_SERVICE);
+                    networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                    if(networkInfo == null || !networkInfo.isConnected()){
+                        networkService = false;
+                        return null;
+                    }
+
                     httpURLConnection = (HttpURLConnection) url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoInput(true);
@@ -245,8 +266,13 @@ public class Splash_Login_Activity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             try{
+                if(s != null && s.equals("200")){
+                    Toast.makeText(getApplicationContext(),"Wrong Username or Password. Please try again."
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(s == null || s.length() == 0 || !networkService){
-                    Log.e(LOG_TAG, "Unable to get json");
                     if(!networkService){
                         Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
                                 Toast.LENGTH_SHORT).show();
@@ -254,12 +280,6 @@ public class Splash_Login_Activity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
                                 Toast.LENGTH_SHORT).show();
                     }
-                    return;
-                }
-
-                if(s.equals("200")){
-                    Toast.makeText(getApplicationContext(),"Wrong Username or Password. Please try again."
-                            , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -284,6 +304,8 @@ public class Splash_Login_Activity extends AppCompatActivity {
                         Integer user_id = server_data.getInt(WebServerContract.USER_AUTHORIZATION_USER_ID_AUTOINCREAMENT);
                         String user_name = userName.getText().toString();
                         String user_real_name = server_data.getString(WebServerContract.USER_AUTHORIZATION_USER_NAME);
+
+                        //Log.e(LOG_TAG, user_id.toString() + " " + user_name + " " + user_real_name);
 
                         AccountHelper accountHelper = new AccountHelper(getApplicationContext());
                         accountHelper.deleteData();

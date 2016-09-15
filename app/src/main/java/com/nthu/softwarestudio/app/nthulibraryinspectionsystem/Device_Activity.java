@@ -2398,6 +2398,7 @@ public class Device_Activity extends AppCompatActivity {
                 URL url = new URL(MACHINE_INFO_URL);
                 String urlParameters = WebServerContract.MACHINE_BRANCH + "=" + params[0] + "&" +
                         WebServerContract.MACHINE_FLOOR + "=" + params[1];
+                Log.e(LOG_TAG, urlParameters + " " + url.toString());
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -2571,6 +2572,15 @@ public class Device_Activity extends AppCompatActivity {
 
                 URL url = new URL(builtUri.toString());
 
+                ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                if(networkInfo == null || !networkInfo.isConnected()){
+                    networkService = false;
+                    return null;
+                }
+
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -2622,6 +2632,18 @@ public class Device_Activity extends AppCompatActivity {
 
             super.onPostExecute(s);
             try{
+                if(s == null || s.length() == 0 || !networkService){
+                    Log.e(LOG_TAG, "Unable to get json");
+                    if(!networkService){
+                        Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    return;
+                }
+
                 if(s.equals("No data\n")){
                     Toast.makeText(Device_Activity.this, "No data", Toast.LENGTH_SHORT).show();
                     return;
@@ -2639,7 +2661,7 @@ public class Device_Activity extends AppCompatActivity {
                             reader.getJSONObject(i).getString("username"),
                             reader.getJSONObject(i).getString("state"),
                             reader.getJSONObject(i).getString("problem_detail"),
-                            reader.getJSONObject(i).getString("solve_detail"),
+                            reader.getJSONObject(i).getString("comment"),
                             reader.getJSONObject(i).getString("solve_date"),
                             reader.getJSONObject(i).getString("branch"),
                             reader.getJSONObject(i).getString("floor")
@@ -2756,15 +2778,23 @@ public class Device_Activity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try{
-                if(s == null || s.length() == 0){
-                    Toast.makeText(Device_Activity.this, "Failed update.", Toast.LENGTH_SHORT).show();
+                if(s == null || s.length() == 0 || !networkService){
+                    if(!networkService){
+                        Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Update failed! Unable to connect to server. Please try again later.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    return;
                 }
 
                 JSONObject response = new JSONObject(s);
                 String web_server = response.getString("web_server");
                 String machine_id = response.getString(WebServerContract.MACHINE_ID);
                 if(web_server.equals("failed")){
-                    Toast.makeText(Device_Activity.this, "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Update " + machine_id + " failed! Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(Device_Activity.this,  machine_id+" 狀態已設為良好", Toast.LENGTH_SHORT).show();
                     selectedButton.setBackgroundResource(R.drawable.rounded_button_menu);
@@ -2773,7 +2803,6 @@ public class Device_Activity extends AppCompatActivity {
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
-            } finally {
             }
         }
     }

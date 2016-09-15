@@ -304,7 +304,7 @@ public class Form_Activity extends AppCompatActivity {
                                 postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER),
                                         String.valueOf(accountHelper.getForeignKey()),
                                         daily_problem_input.getText().toString(),
-                                        accountHelper.getUserName());
+                                        accountHelper.getUserId());
                             }
                         });
 
@@ -425,7 +425,7 @@ public class Form_Activity extends AppCompatActivity {
                                         String.valueOf(accountHelper.getForeignKey()),
                                         daily_problem_input.getText().toString(),
                                         daily_problem_solve_input.getText().toString(),
-                                        accountHelper.getUserName());
+                                        accountHelper.getUserId());
                             }
                         });
 
@@ -922,26 +922,34 @@ public class Form_Activity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try{
-                if(s == null || s.length() == 0){
-                    Toast.makeText(Form_Activity.this, "Failed update.", Toast.LENGTH_SHORT).show();
+                if(s == null || s.length() == 0 || !networkService){
+                    if(!networkService){
+                        Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Update failed! Unable to connect to server. Please try again later.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    return;
                 }
 
                 JSONObject response = new JSONObject(s);
                 String web_server = response.getString("web_server");
                 String machine_id = response.getString(WebServerContract.MACHINE_ID);
                 if(web_server.equals("failed")){
-                    Toast.makeText(Form_Activity.this, "Failed update " + machine_id, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Update " + machine_id + " failed! Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(Form_Activity.this, "Updated " + machine_id, Toast.LENGTH_SHORT).show();
+
+                    if(problem_dialog != null) problem_dialog.dismiss();
+                    if(problem_solve_dialog != null) problem_solve_dialog.dismiss();
+                    onBackPressed();
                 }
 
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
-            } finally {
-                if(problem_dialog != null) problem_dialog.dismiss();
-                if(problem_solve_dialog != null) problem_solve_dialog.dismiss();
-                onBackPressed();
             }
         }
     }

@@ -1,7 +1,10 @@
 package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
@@ -45,6 +49,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
     }
 
     class LoadingProgressBar extends AsyncTask<Integer, Integer, String>{
+        Boolean networkService = true;
 
         @Override
         protected String doInBackground(Integer... Progress) {
@@ -54,16 +59,30 @@ public class Main_Menu_Activity extends AppCompatActivity {
             BufferedReader reader = null;
             String alldatastring = "";
 
-
             try{
-
-                Uri b2 = Uri.parse(WebServerContract.BASE_URL+WebServerContract.UPDATE_DATA).buildUpon().build();
+                //connect to data_program.php for updating
+                Uri b2 = Uri.parse(WebServerContract.BASE_URL + WebServerContract.UPDATE_DATA).buildUpon().build();
                 URL u2 =new URL(b2.toString());
+
+                ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                if(networkInfo == null || !networkInfo.isConnected()){
+                    networkService = false;
+                    return null;
+                }
+
                 HttpURLConnection uc2 = (HttpURLConnection)u2.openConnection();
                 uc2.setRequestMethod("GET");
                 uc2.connect();
                 uc2.getInputStream();
-                if(uc2!=null) uc2.disconnect();
+                if(uc2 != null) uc2.disconnect();
+                else{
+                    Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                    return null;
+                }
                 //Log.v("Look url:", "Built URI " + b2.toString());
                 publishProgress(25);
                 try{
@@ -71,9 +90,19 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 }
                 catch (InterruptedException e){}
 
-
-                Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.SEARCH_INDEX).buildUpon().build();
+                //connect to search_index.php to get search index value
+                Uri builtUri = Uri.parse(WebServerContract.BASE_URL + WebServerContract.SEARCH_INDEX).buildUpon().build();
                 URL url = new URL(builtUri.toString());
+
+                connectivityManager = (ConnectivityManager) getApplicationContext()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                if(networkInfo == null || !networkInfo.isConnected()){
+                    networkService = false;
+                    return null;
+                }
+
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -103,8 +132,7 @@ public class Main_Menu_Activity extends AppCompatActivity {
                 }
                 catch (InterruptedException e){}
 
-                int pp=51;
-                for(pp=51 ; pp<100;pp++){
+                for(int pp=51 ; pp<100;pp++){
                     try{
                         Thread.sleep(20);
                         publishProgress(pp);
@@ -150,9 +178,22 @@ public class Main_Menu_Activity extends AppCompatActivity {
             super.onProgressUpdate(values);
             progressBar.setProgress(values[0]);
         }
+
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
+            if(s == null || s.length() == 0 || !networkService){
+                if(!networkService){
+                    Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
             SharedPreferences.Editor editor;
             editor = getSharedPreferences("NTHI_LIB_pref", MODE_PRIVATE).edit();
             editor.putString("search_index_prf",s);

@@ -3,6 +3,8 @@ package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 class GetSearchIndex extends AsyncTask<String, Integer, String> {
 
     Context mContext;
+    Boolean networkService = true;
 
     public GetSearchIndex(Context tmp){
         mContext = tmp;
@@ -39,12 +42,19 @@ class GetSearchIndex extends AsyncTask<String, Integer, String> {
         BufferedReader reader = null;
         String alldatastring = "";
 
-
         try{
-
             Uri builtUri = Uri.parse(WebServerContract.BASE_URL+WebServerContract.LIST_ALL_PROBLEN_URL+"?date="+Progress[0]+"&machine_id="+Progress[1]).buildUpon().build();
 
             URL url = new URL(builtUri.toString());
+
+            ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getApplicationContext()
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+            if(networkInfo == null || !networkInfo.isConnected()){
+                networkService = false;
+                return null;
+            }
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -125,6 +135,17 @@ class GetSearchIndex extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String s) {
         try{
+            if(s == null || s.length() == 0 || !networkService){
+                if(!networkService){
+                    Toast.makeText(mContext.getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext.getApplicationContext(), "Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
             if(s.equals("No data")){
                 Toast.makeText(mContext,s,Toast.LENGTH_LONG).show();
             }
@@ -137,7 +158,7 @@ class GetSearchIndex extends AsyncTask<String, Integer, String> {
                 intent.putExtra(WebServerContract.DAILIES_USER_ID,reader.getJSONObject(0).getString("username"));
                 intent.putExtra(WebServerContract.DAILIES_STATE,reader.getJSONObject(0).getString("state"));
                 intent.putExtra(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL,reader.getJSONObject(0).getString("problem_detail"));
-                intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL,reader.getJSONObject(0).getString("solve_detail"));
+                intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL,reader.getJSONObject(0).getString("comment"));
                 intent.putExtra(WebServerContract.DAILY_PROBLEM_SOLVE_DATE,reader.getJSONObject(0).getString("solve_date"));
                 mContext.startActivity(intent);
             }
