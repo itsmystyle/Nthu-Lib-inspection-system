@@ -13,7 +13,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/message_add"
-        android:layout_width="50dp"
+        android:layout_width="65dp"
         android:src="@drawable/ic_plus_sign"
         app:elevation="13dp"
         app:backgroundTint="@color/byzantium"
@@ -26,6 +26,6 @@
         android:layout_alignParentEnd="true"
         android:clickable="true"
         tools:ignore="RtlHardcoded,VectorDrawableCompat"
-        android:layout_height="50dp"/>
+        android:layout_height="65dp"/>
 
 </RelativeLayout>
