@@ -15,7 +15,7 @@ public class Splash_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        accountHelper = new AccountHelper(getApplicationContext());
+        /*accountHelper = new AccountHelper(getApplicationContext());
         if(!accountHelper.isEmpty() && accountHelper.getRemeberMe() == 1){
             //not empty and user ticked remember me, start main menu activity
 
@@ -31,6 +31,11 @@ public class Splash_Activity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
-        }
+        }*/
+
+        Intent intent = new Intent(getApplicationContext(), BulletinButtonActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
     }
 }

@@ -124,7 +124,7 @@ public class Splash_Login_Activity extends AppCompatActivity {
 
                 char[] charSequence = stringBuffer.toString().toCharArray();
                 StringBuffer stringBufferTmp = new StringBuffer();
-                for(int i=3976; i < 4064; i++)
+                for(int i=4137; i < 4225; i++)
                     stringBufferTmp.append(charSequence[i]);
 
                 Log.e(LOG_TAG, stringBufferTmp.toString());

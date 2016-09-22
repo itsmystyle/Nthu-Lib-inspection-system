@@ -78,4 +78,9 @@ public class WebServerContract {
     //public static final String DAILY_PROBLEM_SOLVE_DETAIL = "solve_detail";
     public static final String DAILY_PROBLEM_SOLVE_DETAIL = "comment";
     public static final String DAILY_PROBLEM_SOLVE_DATE = "solve_date";
+
+    //BulletinBoard
+    public static final String USERNAME = "username";
+    public static final String DATE = "date";
+    public static final String MESSAGE = "MESSAGE";
 }
