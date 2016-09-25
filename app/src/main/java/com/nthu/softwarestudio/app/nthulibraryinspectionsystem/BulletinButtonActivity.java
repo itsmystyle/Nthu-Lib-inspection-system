@@ -24,9 +24,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.AccountHelper;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
@@ -51,6 +55,8 @@ public class BulletinButtonActivity extends AppCompatActivity {
     Calendar calendar;
     int year_x, month_x, day_x;
     DatePicker datePicker;
+    BulletinData toPost;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +71,14 @@ public class BulletinButtonActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(Data, getApplicationContext());
         recyclerView.setAdapter(recyclerViewAdapter);
 
+        UpdateData();
+
         addBulletinButton = (FloatingActionButton) findViewById(R.id.message_add);
         addBulletinButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final Dialog dialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
+                        dialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                         dialog.setContentView(R.layout.bulletinmessagedialog);
 
@@ -112,7 +120,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         String date;
 
-                                        String MON = String.valueOf(month_x);
+                                        String MON = String.valueOf(month_x + 1);
 
                                         if(month_x < 10) MON = "0" + MON;
 
@@ -122,7 +130,11 @@ public class BulletinButtonActivity extends AppCompatActivity {
 
                                         date = year_x + "-" + MON + "-" + DAY;
 
-                                        Toast.makeText(v.getContext(), message.getText() + " " + date, Toast.LENGTH_SHORT).show();
+                                        AccountHelper accountHelper = new AccountHelper(getApplicationContext());
+                                        String username = accountHelper.getUserName();
+
+                                        PostMessage postMessage = new PostMessage();
+                                        postMessage.execute(username, date, message.getText().toString());
                                     }
                                 }
                         );
@@ -147,7 +159,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     year_x = year;
-                    month_x = monthOfYear + 1;
+                    month_x = monthOfYear;
                     day_x = dayOfMonth;
 
                     String MON = String.valueOf(month_x);
@@ -261,13 +273,16 @@ public class BulletinButtonActivity extends AppCompatActivity {
 
         Boolean networkService = true;
         HttpURLConnection httpURLConnection;
-        final String BASE_URL = WebServerContract.BASE_URL + "/message_post.php";
+        final String BASE_URL = WebServerContract.BASE_URL + "/postmessage.php";
 
         @Override
         protected String doInBackground(String... params) {
             String param = WebServerContract.USERNAME + "=" + params[0] + "&" +
                             WebServerContract.DATE + "=" + params[1] + "&" +
                             WebServerContract.MESSAGE + "=" + params[2];
+
+            Log.e(LOG_TAG, BASE_URL + " " + param);
+
             try {
                 URL url = new URL(BASE_URL);
 
@@ -318,6 +333,35 @@ public class BulletinButtonActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+            if(s == null || s.length() == 0 || !networkService){
+                if(!networkService){
+                    Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            try {
+                JSONObject result = new JSONObject(s);
+                String web_server = result.getString("web_server");
+                if(web_server.equals("success")){
+                    Toast.makeText(getApplicationContext(), "Done!",
+                            Toast.LENGTH_SHORT).show();
+                    if(dialog != null) dialog.onBackPressed();
+                    UpdateData();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error: failed. Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             super.onPostExecute(s);
         }
     }
@@ -326,7 +370,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
         final String LOG_TAG = getClass().getSimpleName();
 
         HttpURLConnection httpURLConnection;
-        final String BASE_URL = WebServerContract.BASE_URL + "/message_get.php";
+        final String BASE_URL = WebServerContract.BASE_URL + "/getmessage.php";
         Boolean networkService = true;
 
         @Override
@@ -378,6 +422,53 @@ public class BulletinButtonActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if(s == null || s.length() == 0 || !networkService){
+                if(!networkService){
+                    Toast.makeText(getApplicationContext(), "Unable to connect to internet. Please check for network service.",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            try {
+                JSONObject result = new JSONObject(s);
+                String web_server = result.getString("web_server");
+                if(web_server.equals("success")){
+                    int lenght = result.getInt("length");
+                    if(lenght > 0){
+                        JSONArray jsonArray = result.getJSONArray("data");
+                        for(int i=0; i<jsonArray.length(); i++){
+                            JSONObject tmp = jsonArray.getJSONObject(i);
+                            String username = tmp.getString(WebServerContract.USERNAME);
+                            String postdate = tmp.getString(WebServerContract.POST_DATE);
+                            String enddate = tmp.getString(WebServerContract.END_DATE);
+                            String message = tmp.getString(WebServerContract.MESSAGE);
+
+                            Data.add(new BulletinData(username, postdate, enddate, message));
+                        }
+
+                        recyclerViewAdapter.updateData(Data);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Bulletin Board is empty. Create a bulletin message.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error: failed. Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void UpdateData(){
+        Data = new ArrayList<>();
+        GetMessage getMessage = new GetMessage();
+        getMessage.execute();
     }
 }

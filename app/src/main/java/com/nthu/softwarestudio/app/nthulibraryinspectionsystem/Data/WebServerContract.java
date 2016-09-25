@@ -7,10 +7,10 @@ public class WebServerContract {
     /**
      * Base url link to server
      */
-    //public static final String BASE_URL = "http://192.168.1.109:8888/NTHU_lib_app";
+    public static final String BASE_URL = "http://10.0.2.2:28888/NTHU_lib_app";
     //public static final String BASE_URL = "http://192.168.1.105:8888/Nthu_lib_app";
     //public static final String BASE_URL = "http://s103062325.web.2y.idv.tw/NTHU_lib_app";
-    public static final String BASE_URL = "http://140.114.73.33:3333";
+    //public static final String BASE_URL = "http://140.114.73.33:3333";
     public static final String ROR_BASE_URL = "http://140.114.73.33:3000/users";
 
     // user authorization
@@ -82,5 +82,7 @@ public class WebServerContract {
     //BulletinBoard
     public static final String USERNAME = "username";
     public static final String DATE = "date";
-    public static final String MESSAGE = "MESSAGE";
+    public static final String POST_DATE = "postdate";
+    public static final String END_DATE = "enddate";
+    public static final String MESSAGE = "message";
 }
