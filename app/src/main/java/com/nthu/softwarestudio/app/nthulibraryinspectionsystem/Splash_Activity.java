@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.AccountHelper;
+import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.MachineContract;
 
 public class Splash_Activity extends AppCompatActivity {
 
@@ -33,7 +34,8 @@ public class Splash_Activity extends AppCompatActivity {
             finish();
         }
 
-        /*Intent intent = new Intent(getApplicationContext(), BulletinButtonActivity.class);
+        /*Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+        intent.putExtra(MachineContract.MACHINE_NUMBER, "C102");
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();*/

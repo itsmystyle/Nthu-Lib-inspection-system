@@ -49,6 +49,7 @@ public class Form_Activity extends AppCompatActivity {
 
     Dialog problem_dialog;
     Dialog problem_solve_dialog;
+    Dialog other_dialog;
 
     TextView machine_number_textView;
     TextView place_textView;
@@ -57,6 +58,8 @@ public class Form_Activity extends AppCompatActivity {
     TextView dialog_problem_machine_place;
     TextView dialog_solve_machine_number;
     TextView dialog_solve_machine_place;
+    TextView other_machine_number;
+    TextView other_machine_place;
     Button past7thday_button;
     Button past6thday_button;
     Button past5thday_button;
@@ -65,11 +68,14 @@ public class Form_Activity extends AppCompatActivity {
     Button past2ndday_button;
     Button past1stday_button;
     Button submit_button;
+    Button other_dialog_submit_button;
+    Button other_dialog_cancel_button;
     Button daily_dialog_submit_button;
     Button daily_dialog_cancel_button;
     Button daily_dialog_photo_button;
     EditText daily_problem_input;
     EditText daily_problem_solve_input;
+    EditText other_input;
     Spinner spinner;
     Spinner unsolvable_problem_spinner;
     Spinner problem_spinner;
@@ -443,6 +449,48 @@ public class Form_Activity extends AppCompatActivity {
 
                         break;
 
+                    case MachineContract.MACHINE_STATE_其他:
+                        other_dialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
+                        other_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        other_dialog.setContentView(R.layout.other_dialog);
+                        other_dialog.setCanceledOnTouchOutside(false);
+
+                        Window window_other = other_dialog.getWindow();
+                        window_other.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                                WindowManager.LayoutParams.WRAP_CONTENT);
+
+                        other_input = (EditText) other_dialog.findViewById(R.id.other_edittext);
+                        other_dialog_submit_button = (Button) other_dialog.findViewById(R.id.other_submit);
+                        other_dialog_cancel_button = (Button) other_dialog.findViewById(R.id.other_cancel);
+                        other_machine_number = (TextView) other_dialog.findViewById(R.id.other_machine_number);
+                        other_machine_place = (TextView) other_dialog.findViewById(R.id.other_place);
+
+                        other_dialog_submit_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
+                                postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER),
+                                        String.valueOf(accountHelper.getForeignKey()),
+                                        "其他",
+                                        other_input.getText().toString(),
+                                        accountHelper.getUserId());
+                            }
+                        });
+
+                        other_dialog_cancel_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                other_dialog.onBackPressed();
+                            }
+                        });
+
+                        other_machine_number.setText(other_machine_number.getText() + getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER));
+                        other_machine_place.setText(other_machine_place.getText() + MachinePlace);
+
+                        other_dialog.show();
+
+                        break;
+
                     default:
                         PostTodayMachineInfoAsyncTask postTodayMachineInfoAsyncTask = new PostTodayMachineInfoAsyncTask();
                         postTodayMachineInfoAsyncTask.execute(getIntent().getExtras().getString(MachineContract.MACHINE_NUMBER),
@@ -588,6 +636,8 @@ public class Form_Activity extends AppCompatActivity {
                             , Toast.LENGTH_SHORT).show();
                     return;
                 }else{
+                    Log.e(LOG_TAG, s);
+
                     JSONObject machine_info = response.getJSONObject(WebServerContract.MACHINE_INFO_SERVER);
 
                     int tmpState;
@@ -615,6 +665,8 @@ public class Form_Activity extends AppCompatActivity {
                             break;
                         case MachineContract.MACHINE_STATE_其他:
                             state_textView.setText(state_textView.getText() + MachineContract.MACHINE_STATE_STRING_其他);
+                            problem = machine_info.getString(WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL);
+                            solution = machine_info.getString(WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL);
                             spinner.setSelection(3);
                             break;
                         default:
@@ -835,6 +887,16 @@ public class Form_Activity extends AppCompatActivity {
                         break;
 
                     case MachineContract.MACHINE_STATE_問題排除:
+                        urlParameters = WebServerContract.DAILIES_MACHINE_ID + "=" + URLEncoder.encode(params[0], "utf-8") + "&" +
+                                WebServerContract.DAILIES_DATE + "=" + CurrentDate + "&" +
+                                WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
+                                WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                                WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_問題排除 + "&" +
+                                WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
+                                WebServerContract.DAILIES_USER_NAME + "=" + URLEncoder.encode(params[4], "utf-8");
+                        break;
+
+                    case MachineContract.MACHINE_STATE_其他:
                         urlParameters = WebServerContract.DAILIES_MACHINE_ID + "=" + URLEncoder.encode(params[0], "utf-8") + "&" +
                                 WebServerContract.DAILIES_DATE + "=" + CurrentDate + "&" +
                                 WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
