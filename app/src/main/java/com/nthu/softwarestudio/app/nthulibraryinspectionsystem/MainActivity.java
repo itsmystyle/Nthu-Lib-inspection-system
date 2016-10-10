@@ -67,29 +67,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        settingButton.setVisibility(View.INVISIBLE);
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                settingDialog = new Dialog(v.getContext(), R.style.AppTheme_Dialog);
-                settingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                settingDialog.setContentView(R.layout.setting_dialog);
-
-                Window window = settingDialog.getWindow();
-                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT);
-
-                final Button sumbitButton = (Button) settingDialog.findViewById(R.id.button_setting_submit);
-                final Button cancelButton = (Button) settingDialog.findViewById(R.id.button_setting_cancel);
-
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        settingDialog.onBackPressed();
-                    }
-                });
-
-                settingDialog.show();
+                Intent intent = new Intent(getApplicationContext(), BulletinButtonActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

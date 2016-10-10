@@ -13,21 +13,76 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <TextView
-            android:text="TextView"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bulletin_textView_username"
-            android:layout_weight="1"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            tools:textColor="  "
-            android:textStyle="normal|bold"
-            android:textSize="@dimen/activity_vertical_margin"
-            tools:ignore="HardcodedText,ObsoleteLayoutParam,SpUsage"
-            android:textColor="#FF000000" />
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bulletin_textView_username"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    tools:textColor="  "
+                    android:textStyle="normal|bold"
+                    android:textSize="@dimen/activity_vertical_margin"
+                    tools:ignore="HardcodedText,ObsoleteLayoutParam,SpUsage"
+                    android:textColor="#FF000000" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/bulletinboard_edit_button"
+                    android:background="@drawable/create"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    android:layout_gravity="center" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/bulletinboard_delete_button"
+                    android:background="@drawable/delete"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:layout_height="20dp"
+                    android:id="@+id/bulletinboard_pin_button"
+                    android:background="@drawable/keep"
+                    android:layout_width="15dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+        </LinearLayout>
+
     </FrameLayout>
 
     <FrameLayout

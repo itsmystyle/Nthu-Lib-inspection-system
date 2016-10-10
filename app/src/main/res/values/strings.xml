@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Nthu Library Inspection System</string>
-    <string name="app_version">version 1.2.7</string>
+    <string name="app_version">version 1.3.1</string>
     <string name="button_inspection">設備維護檢視</string>
     <string name="button_history">設備檢視紀錄</string>
     <string name="button_statistics">狀態</string>
-    <string name="button_setting">帳號設定</string>
+    <string name="button_setting">公告欄</string>
     <string name="button_sign_out">Sign Out</string>
     <string name="loading_data">Loading Data...</string>
     <string name="setting_old_password">舊密碼</string>

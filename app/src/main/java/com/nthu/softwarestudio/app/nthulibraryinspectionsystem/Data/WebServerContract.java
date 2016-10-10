@@ -85,4 +85,6 @@ public class WebServerContract {
     public static final String POST_DATE = "postdate";
     public static final String END_DATE = "enddate";
     public static final String MESSAGE = "message";
+    public static final String MESSAGE_ID = "message_id";
+    public static final String IMPORTANT = "important";
 }

@@ -34,7 +34,7 @@ public class Splash_Activity extends AppCompatActivity {
             finish();
         }
 
-        /*Intent intent = new Intent(getApplicationContext(), Form_Activity.class);
+        /*Intent intent = new Intent(getApplicationContext(), BulletinButtonActivity.class);
         intent.putExtra(MachineContract.MACHINE_NUMBER, "C102");
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
