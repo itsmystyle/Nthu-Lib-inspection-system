@@ -806,7 +806,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
                 JSONObject result = new JSONObject(s);
                 String web_server = result.getString("web_server");
                 if(web_server.equals("success")){
-                    Toast.makeText(getApplicationContext(), "Done!",
+                    Toast.makeText(getApplicationContext(), "Edited message!",
                             Toast.LENGTH_SHORT).show();
                     if(dialog != null) dialog.onBackPressed();
                     UpdateData();
