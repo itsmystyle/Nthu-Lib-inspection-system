@@ -484,6 +484,8 @@ public class Form_Activity extends AppCompatActivity {
                             }
                         });
 
+                        if(solution != null) other_input.setText(solution);
+
                         other_machine_number.setText(other_machine_number.getText() + getIntent().getExtras().getString(WebServerContract.MACHINE_NUMBER));
                         other_machine_place.setText(other_machine_place.getText() + MachinePlace);
 
@@ -901,7 +903,7 @@ public class Form_Activity extends AppCompatActivity {
                                 WebServerContract.DAILIES_DATE + "=" + CurrentDate + "&" +
                                 WebServerContract.DAILIES_USER_ID + "=" + URLEncoder.encode(params[1], "utf-8") + "&" +
                                 WebServerContract.DAILY_PROBLEM_PROBLEM_DETAIL + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                                WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_問題排除 + "&" +
+                                WebServerContract.DAILIES_STATE + "=" + MachineContract.MACHINE_STATE_其他 + "&" +
                                 WebServerContract.DAILY_PROBLEM_SOLVE_DETAIL + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
                                 WebServerContract.DAILIES_USER_NAME + "=" + URLEncoder.encode(params[4], "utf-8");
                         break;
@@ -1001,6 +1003,8 @@ public class Form_Activity extends AppCompatActivity {
                 if(web_server.equals("failed")){
                     Toast.makeText(getApplicationContext(), "Update " + machine_id + " failed! Unable to connect to server. Please try again later.",
                             Toast.LENGTH_SHORT).show();
+                    String failed_part = response.getString("failed_part");
+                    Log.e(LOG_TAG, failed_part);
                 }else{
                     Toast.makeText(Form_Activity.this, "Updated " + machine_id, Toast.LENGTH_SHORT).show();
 
