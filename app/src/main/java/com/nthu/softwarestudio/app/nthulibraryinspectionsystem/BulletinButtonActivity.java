@@ -376,7 +376,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
                         bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                         byte[] byteArray = stream.toByteArray();
 
-                        Intent intent = new Intent(getApplicationContext(), Gallery_Activity.class);
+                        Intent intent = new Intent(getApplicationContext(), Gallery_View_Activity.class);
                         intent.putExtra(WebServerContract.IMAGE_NAME, DataSet.get(position).getImageName());
                         intent.putExtra(WebServerContract.IMAGE_CONTENT, byteArray);
                         startActivity(intent);

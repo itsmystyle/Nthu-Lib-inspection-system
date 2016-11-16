@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_gallery_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Gallery_View_Activity"
+    android:background="@color/black">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@color/black"
+            android:id="@+id/imageView_image" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_weight="6"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/gallery_view_save"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="@string/dummy_button"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button_history_solved"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="2dp" />
+
+            <Button
+                android:id="@+id/gallery_view_close"
+                style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="@string/dummy_button2"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button_history_solved"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="4dp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

@@ -40,10 +40,7 @@
         <activity android:name=".History_State_Activity" />
         <activity android:name=".Detail_Activity" />
         <activity android:name=".BulletinButtonActivity" />
-        <activity
-            android:name=".Gallery_Activity"
-            android:label="@string/title_activity_gallery_"
-            android:theme="@style/FullscreenTheme"></activity>
+        <activity android:name=".Gallery_View_Activity"></activity>
     </application>
 
 </manifest>
