@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Nthu Library Inspection System</string>
-    <string name="app_version">version 1.4.1</string>
+    <string name="app_version">version 1.5.3</string>
     <string name="button_inspection">設備維護檢視</string>
     <string name="button_history">設備檢視紀錄</string>
     <string name="button_statistics">狀態</string>
@@ -140,4 +140,11 @@
         <item>按紅色鈕重新開機</item>
         <item>重新開機</item>
     </string-array>
+
+    <string name="title_activity_image_view">Image View</string>
+    <string name="dummy_button">SAVE</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_gallery_">Gallery_Activity</string>
+    <string name="dummy_button2">CLOSE</string>
 </resources>

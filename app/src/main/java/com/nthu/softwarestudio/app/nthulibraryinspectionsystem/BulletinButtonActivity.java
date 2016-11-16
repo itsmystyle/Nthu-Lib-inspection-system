@@ -1,18 +1,27 @@
 package com.nthu.softwarestudio.app.nthulibraryinspectionsystem;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +31,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kosalgeek.android.photoutil.CameraPhoto;
+import com.kosalgeek.android.photoutil.ImageLoader;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.AccountHelper;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.ViewContract;
 import com.nthu.softwarestudio.app.nthulibraryinspectionsystem.Data.WebServerContract;
@@ -34,19 +47,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import com.kosalgeek.android.photoutil.GalleryPhoto;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static java.sql.Types.NULL;
 
 public class BulletinButtonActivity extends AppCompatActivity {
     final String LOG_TAG = this.getClass().getSimpleName();
@@ -60,6 +80,16 @@ public class BulletinButtonActivity extends AppCompatActivity {
     DatePicker datePicker;
     BulletinData toPost;
     Dialog dialog;
+    TextView imageName;
+
+    final int PHOTO_LIB_REQUEST = 7738;
+    final int PERMISSION_REQUEST = 8829;
+    private GalleryPhoto galleryPhoto = null;
+    String path = null;
+    String imageNameStr = null;
+    String imageTypeStr = null;
+    String encodedImage = null ;
+    Bitmap scaledBitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +126,12 @@ public class BulletinButtonActivity extends AppCompatActivity {
                         day_x = calendar.get(Calendar.DAY_OF_MONTH);
 
                         final EditText message = (EditText) dialog.findViewById(R.id.bulletin_message);
+                        imageName = (TextView) dialog.findViewById(R.id.daily_problem_dialog_problem_image_name);
                         datePicker = (DatePicker) dialog.findViewById(R.id.bulletin_datepicker);
                         Button buttonSubmit = (Button) dialog.findViewById(R.id.bulletin_submit_button);
                         Button buttonCancel = (Button) dialog.findViewById(R.id.bulletin_cancel_button);
                         Button buttonChangeDate = (Button) dialog.findViewById(R.id.bulletin_change_date_button);
+                        Button buttonImage = (Button) dialog.findViewById(R.id.bulletin_photo);
 
                         buttonChangeDate.setOnClickListener(
                                 new View.OnClickListener() {
@@ -114,6 +146,16 @@ public class BulletinButtonActivity extends AppCompatActivity {
                                     }
                                 }
                         );
+
+                        buttonImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getAccessible();
+                                if(galleryPhoto != null){
+                                    startActivityForResult(galleryPhoto.openGalleryIntent(), PHOTO_LIB_REQUEST);
+                                }
+                            }
+                        });
 
                         datePicker.updateDate(year_x, month_x, day_x);
 
@@ -133,15 +175,21 @@ public class BulletinButtonActivity extends AppCompatActivity {
 
                                         date = year_x + "-" + MON + "-" + DAY;
 
+                                        if(scaledBitmap != null){
+                                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                                            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                                            encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+                                        }
+
                                         //testing
-                                        /*PostMessage postMessage = new PostMessage();
-                                        postMessage.execute("緣彩", date, message.getText().toString());*/
+                                        //PostMessage postMessage = new PostMessage();
+                                        //postMessage.execute("緣彩", date, message.getText().toString(), encodedImage, imageTypeStr, imageNameStr);
 
                                         AccountHelper accountHelper = new AccountHelper(getApplicationContext());
                                         String username = accountHelper.getUserName();
 
                                         PostMessage postMessage = new PostMessage();
-                                        postMessage.execute(username, date, message.getText().toString());
+                                        postMessage.execute(username, date, message.getText().toString(), encodedImage, imageTypeStr, imageNameStr);
                                     }
                                 }
                         );
@@ -159,6 +207,100 @@ public class BulletinButtonActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == PHOTO_LIB_REQUEST){
+                Uri uri = data.getData();
+                galleryPhoto.setPhotoUri(uri);
+                String photoPath = galleryPhoto.getPath();
+                path = photoPath;
+                imageNameStr = parseImageName(path);
+                imageTypeStr = parseImageType(imageNameStr);
+                imageName.setText("Image name : " + imageNameStr);
+
+                Bitmap bitmap = null;
+                try {
+                    bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+            }
+        }
+    }
+
+    private String parseImageName(String imageName){
+        String[] tmp = imageName.split("/");
+        int len = tmp.length;
+        return tmp[len-1];
+    }
+
+    private String parseImageType(String imageName){
+        String[] tmp = imageName.split("\\.");
+        int len = tmp.length;
+        return tmp[len-1];
+    }
+
+    private void getAccessible() {
+        boolean shouldShow = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ((ContextCompat.checkSelfPermission(getApplicationContext(),
+                    android.Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) ||
+                    (ContextCompat.checkSelfPermission(getApplicationContext(),
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) ||
+                    (ContextCompat.checkSelfPermission(getApplicationContext(),
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED)) {
+                String camera = null, external_storage = null;
+                if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
+                    camera = "camera";
+                    shouldShow = true;
+                }
+                if (shouldShowRequestPermissionRationale(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                        shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    external_storage = "external storage";
+                    shouldShow = true;
+                }
+                if(shouldShow)
+                    Toast.makeText(getApplicationContext(), "Need permission to access " + camera + " " + external_storage ,
+                            Toast.LENGTH_SHORT).show();
+
+                requestPermissions(new String[]{
+                        android.Manifest.permission.CAMERA,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST);
+            } else {
+                galleryPhoto = new GalleryPhoto(getApplicationContext().getApplicationContext());
+            }
+        } else {
+            galleryPhoto = new GalleryPhoto(getApplicationContext().getApplicationContext());
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == PERMISSION_REQUEST){
+            if(grantResults.length == 3 && (
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                            grantResults[1] == PackageManager.PERMISSION_GRANTED &&
+                            grantResults[2] == PackageManager.PERMISSION_GRANTED
+            )){
+                Log.v(LOG_TAG, permissions[0] + " " + permissions[1] + " " + permissions[2]);
+                galleryPhoto = new GalleryPhoto(getApplicationContext().getApplicationContext());
+            }else{
+                Toast.makeText(getApplicationContext(), "Unable to permission access.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Unable to permission access.", Toast.LENGTH_SHORT).show();
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     private DatePickerDialog.OnDateSetListener dpickerListener =
@@ -195,6 +337,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
             TextView username;
             TextView date;
             TextView message;
+            ImageView imageView;
             Button edit;
             Button delete;
             Button pin;
@@ -207,6 +350,7 @@ public class BulletinButtonActivity extends AppCompatActivity {
                 edit = (Button) itemView.findViewById(R.id.bulletinboard_edit_button);
                 delete = (Button) itemView.findViewById(R.id.bulletinboard_delete_button);
                 pin = (Button) itemView.findViewById(R.id.bulletinboard_pin_button);
+                imageView = (ImageView) itemView.findViewById(R.id.bulletin_imageView);
             }
         }
 
@@ -219,9 +363,29 @@ public class BulletinButtonActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.username.setText(DataSet.get(position).getUsename());
+            holder.username.setText(DataSet.get(position).getUsername());
             holder.date.setText(DataSet.get(position).getStartDate());
             holder.message.setText(DataSet.get(position).getMessage());
+            if(DataSet.get(position).getImageContent() != null){
+                holder.imageView.setImageBitmap(DataSet.get(position).getImageContent());
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        Bitmap bmp = DataSet.get(position).getImageContent();
+                        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+
+                        Intent intent = new Intent(getApplicationContext(), Gallery_Activity.class);
+                        intent.putExtra(WebServerContract.IMAGE_NAME, DataSet.get(position).getImageName());
+                        intent.putExtra(WebServerContract.IMAGE_CONTENT, byteArray);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                });
+            }else{
+                holder.imageView.setImageResource(0);
+            }
             holder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -246,6 +410,8 @@ public class BulletinButtonActivity extends AppCompatActivity {
                     Button buttonSubmit = (Button) dialog.findViewById(R.id.bulletin_submit_button);
                     Button buttonCancel = (Button) dialog.findViewById(R.id.bulletin_cancel_button);
                     Button buttonChangeDate = (Button) dialog.findViewById(R.id.bulletin_change_date_button);
+                    FrameLayout frameLayout = (FrameLayout) dialog.findViewById(R.id.photo_frame_layout);
+                    frameLayout.setVisibility(View.GONE);
 
                     message.setText(DataSet.get(position).getMessage());
 
@@ -331,26 +497,57 @@ public class BulletinButtonActivity extends AppCompatActivity {
         }
 
         public void updateData(List<BulletinData> DataSet){
+            this.DataSet.clear();
             this.DataSet = DataSet;
             notifyDataSetChanged();
         }
     }
 
     public class BulletinData{
-        String usename;
+        String username;
         String startDate;
         String endDate;
         String message;
+        String imageType;
+        String imageName;
+        Bitmap imageContent;
         int messageId;
         int important;
 
-        public BulletinData(int messageId, String message, String endDate, String startDate, String usename, int important) {
+        public BulletinData(int messageId, String message, String endDate, String startDate, String username, int important, Bitmap imageContent, String imageType, String imageName) {
             this.messageId = messageId;
             this.message = message;
             this.endDate = endDate;
             this.startDate = startDate;
-            this.usename = usename;
+            this.username = username;
             this.important = important;
+            this.imageContent = imageContent;
+            this.imageType = imageType;
+            this.imageName = imageName;
+        }
+
+        public String getImageName() {
+            return imageName;
+        }
+
+        public void setImageName(String imageName) {
+            this.imageName = imageName;
+        }
+
+        public String getImageType() {
+            return imageType;
+        }
+
+        public void setImageType(String imageType) {
+            this.imageType = imageType;
+        }
+
+        public Bitmap getImageContent() {
+            return imageContent;
+        }
+
+        public void setImageContent(Bitmap imageContent) {
+            this.imageContent = imageContent;
         }
 
         public int getImportant() {
@@ -369,12 +566,12 @@ public class BulletinButtonActivity extends AppCompatActivity {
             this.messageId = messageId;
         }
 
-        public String getUsename() {
-            return usename;
+        public String getUsername() {
+            return username;
         }
 
-        public void setUsename(String usename) {
-            this.usename = usename;
+        public void setUsername(String usename) {
+            this.username = usename;
         }
 
         public String getStartDate() {
@@ -433,7 +630,10 @@ public class BulletinButtonActivity extends AppCompatActivity {
             try {
                 param = WebServerContract.USERNAME + "=" + URLEncoder.encode(params[0], "utf-8") + "&" +
                                 WebServerContract.DATE + "=" + params[1] + "&" +
-                                WebServerContract.MESSAGE + "=" + URLEncoder.encode(params[2], "utf-8");
+                                WebServerContract.MESSAGE + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                                WebServerContract.IMAGE_CONTENT + "=" + params[3] + "&" +
+                                WebServerContract.IMAGE_TYPE + "=" + params[4] + "&" +
+                                WebServerContract.IMAGE_NAME + "=" + params[5];
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -508,6 +708,10 @@ public class BulletinButtonActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Done!",
                             Toast.LENGTH_SHORT).show();
                     if(dialog != null) dialog.onBackPressed();
+                    scaledBitmap = null;
+                    encodedImage = null;
+                    imageNameStr = null;
+                    imageTypeStr = null;
                     UpdateData();
                 }else{
                     Toast.makeText(getApplicationContext(), "Error: failed. Unable to connect to server. Please try again later.",
@@ -865,12 +1069,50 @@ public class BulletinButtonActivity extends AppCompatActivity {
 
                 Log.v(LOG_TAG, stringBuffer.toString());
 
-                return stringBuffer.toString();
+                JSONObject result = new JSONObject(stringBuffer.toString());
+                String web_server = result.getString("web_server");
+                if(web_server.equals("success")){
+                    int lenght = result.getInt("length");
+                    if(lenght > 0){
+                        JSONArray jsonArray = result.getJSONArray("data");
+                        for(int i=0; i<jsonArray.length(); i++){
+                            JSONObject tmp = jsonArray.getJSONObject(i);
+                            String username = tmp.getString(WebServerContract.USERNAME);
+                            String postdate = tmp.getString(WebServerContract.POST_DATE);
+                            String enddate = tmp.getString(WebServerContract.END_DATE);
+                            String message = tmp.getString(WebServerContract.MESSAGE);
+                            String imageType = tmp.getString(WebServerContract.IMAGE_TYPE);
+                            String imageName = tmp.getString(WebServerContract.IMAGE_NAME);
+                            int messageId = tmp.getInt(WebServerContract.MESSAGE_ID);
+                            int important = tmp.getInt(WebServerContract.IMPORTANT);
+                            final String imageContentUrl = WebServerContract.BASE_URL + "/getimage.php?id=" + messageId;
+                            if(httpURLConnection != null) httpURLConnection.disconnect();
+                            httpURLConnection = (HttpURLConnection) (new URL(imageContentUrl)).openConnection();
+                            httpURLConnection.setRequestMethod("GET");
+                            httpURLConnection.setDoInput(true);
+                            httpURLConnection.connect();
 
+                            Bitmap imageContent = BitmapFactory.decodeStream(httpURLConnection.getInputStream(), null, null);
+
+                            if(imageContent != null) Log.e(LOG_TAG, imageContent.toString());
+
+                            Data.add(new BulletinData(messageId, message, enddate, postdate, username, important, imageContent, imageType, imageName));
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Bulletin Board is empty. Create a bulletin message.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error: failed. Unable to connect to server. Please try again later.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return stringBuffer.toString();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
@@ -888,42 +1130,11 @@ public class BulletinButtonActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Unable to connect to server. Please try again later.",
                             Toast.LENGTH_SHORT).show();
                 }
-                return;
+            }else{
+                recyclerViewAdapter.updateData(Data);
             }
 
-            try {
-                JSONObject result = new JSONObject(s);
-                String web_server = result.getString("web_server");
-                if(web_server.equals("success")){
-                    int lenght = result.getInt("length");
-                    if(lenght > 0){
-                        JSONArray jsonArray = result.getJSONArray("data");
-                        for(int i=0; i<jsonArray.length(); i++){
-                            JSONObject tmp = jsonArray.getJSONObject(i);
-                            String username = tmp.getString(WebServerContract.USERNAME);
-                            String postdate = tmp.getString(WebServerContract.POST_DATE);
-                            String enddate = tmp.getString(WebServerContract.END_DATE);
-                            String message = tmp.getString(WebServerContract.MESSAGE);
-                            int messageId = tmp.getInt(WebServerContract.MESSAGE_ID);
-                            int important = tmp.getInt(WebServerContract.IMPORTANT);
-
-                            Data.add(new BulletinData(messageId, message, enddate, postdate, username, important));
-                        }
-
-                        recyclerViewAdapter.updateData(Data);
-                    }else{
-                        recyclerViewAdapter.updateData(Data);
-                        Toast.makeText(getApplicationContext(), "Bulletin Board is empty. Create a bulletin message.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(getApplicationContext(), "Error: failed. Unable to connect to server. Please try again later.",
-                            Toast.LENGTH_SHORT).show();
-                }
-                return;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            return;
         }
     }
 
